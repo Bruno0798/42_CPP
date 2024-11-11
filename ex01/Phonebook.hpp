@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:28:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/11 12:08:34 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:31:27 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #define CLEAR "\033c"
 #include <iomanip>
 #include "Contact.hpp"
+#include <cstdlib>
 
 
 class Phonebook {
@@ -28,7 +29,7 @@ public:
 	void add();
 	static void printContacts(const std::string &text) ;
 	void printIndex(int index) const;
-	void promtUser(std::string promt, std::string &variable);
+	void promptUser(std::string prompt, std::string &variable);
 	void printTable() const;
 	void search() const;
 };

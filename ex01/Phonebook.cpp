@@ -6,13 +6,15 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:28:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/11 15:16:39 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:54:34 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Phonebook.hpp"
 
 #include <iostream>
+#include <cstdlib>
+
 
 Phonebook::Phonebook()
 {
@@ -40,17 +42,17 @@ bool isOnlyNumbers(const std::string &str)
 	return true;
 }
 
-void Phonebook::promtUser(std::string promt, std::string &variable)
+void Phonebook::promptUser(std::string prompt, std::string &variable)
 {
 	while (variable.empty() && !std::cin.eof())
 	{
 		std::cout << CLEAR;
 		std::cout << "Creating Contact" << std::endl;
-		std::cout << promt << std::endl;
+		std::cout << prompt << std::endl;
 		std::getline(std::cin, variable);
-		if((promt == "First Name: " || promt == "Last Name: ") && !isOnlyLetters(variable))
+		if((prompt == "First Name: " || prompt == "Last Name:   ") && !isOnlyLetters(variable))
 			variable.clear();
-		if((promt == "Phone Number: ") && !isOnlyNumbers(variable))
+		if((prompt == "Phone Number: ") && !isOnlyNumbers(variable))
 			variable.clear();
 	}
 }
@@ -59,11 +61,11 @@ void Phonebook::add()
 {
 	std::string firstName, lastName, nickName, phoneNumber, secret;
 
-	promtUser("First Name: ", firstName);
-	promtUser("Last Name: ", lastName);
-	promtUser("NickName: ", nickName);
-	promtUser("Phone Number: ", phoneNumber);
-	promtUser("Secret: ", secret);
+	promptUser("First Name: ", firstName);
+	promptUser("Last Name: ", lastName);
+	promptUser("NickName: ", nickName);
+	promptUser("Phone Number: ", phoneNumber);
+	promptUser("Secret: ", secret);
 	if (firstName.empty() || lastName.empty() || nickName.empty() || phoneNumber.empty() || secret.empty())
 		std::cout << CLEAR << "Contact creation failed!" << std::endl;
 	else
@@ -72,7 +74,7 @@ void Phonebook::add()
 		std::cout << "\nContact Added Successfully" << std::endl;
 	}
 	if(std::cin.eof())
-		std::cout << "Exiting...", exit(1);
+		std::cout << "Exiting...", std::exit(1);
 	std::cout << "Press Enter to Continue!" << std::endl;
 	std::cin.ignore();
 }
@@ -93,7 +95,7 @@ void Phonebook::search() const
 	std::cout << "Input the Index of the Contact:" << std::endl;
 	std::cin >> index;
 	if(std::cin.eof())
-		std::cout << "Exiting...", exit(1);
+		std::cout << "Exiting...", std::exit(1);
 	std::cin.ignore();
 	if (index > 8 || index < 0 || index > id)
 	{
@@ -141,8 +143,8 @@ void Phonebook::printIndex(const int index) const
 	std::cout << CLEAR;
 	std::cout << "First Name: " << contacts[index].getFirstName() << std::endl;
 	std::cout << "Last Name: " << contacts[index].getLastName() << std::endl;
-	std::cout << "Nick Name: " << contacts[index].getPhoneNumber() << std::endl;
-	std::cout << "Phone Number:	" << contacts[index].getPhoneNumber() << std::endl;
+	std::cout << "Nick Name: " << contacts[index].getNickName() << std::endl;
+	std::cout << "Phone Number: " << contacts[index].getPhoneNumber() << std::endl;
 	std::cout << "Darkest Secret: " << contacts[index].getDarkestSecret() << std::endl;
 	std::cout << "Press Enter to continue...";
 }

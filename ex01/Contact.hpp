@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:01:02 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/08 18:23:55 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:33:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CONTACT_HPP
 
 #include <string>
+#include <cstdlib>
 
 class Contact
 {

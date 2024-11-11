@@ -6,12 +6,13 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:13:40 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/11 15:14:58 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:34:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Phonebook.hpp"
+#include <cstdlib>
 
 int main()
 {
@@ -26,7 +27,7 @@ int main()
 		std::cout << "OPTIONS: ADD SEARCH EXIT" << std::endl;
 		std::getline(std::cin, input);
 		if(std::cin.eof())
-			std::cout << "Exiting...", exit(1);
+			std::cout << "Exiting...", std::exit(1);
 		if (input == "ADD")
 			phonebook.add();
 		else if (input == "SEARCH")
