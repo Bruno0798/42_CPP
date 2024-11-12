@@ -33,6 +33,14 @@ public:
 	std::string getNickName() const;
 	std::string getPhoneNumber() const;
 	std::string getDarkestSecret() const;
+
+    // Setters
+    void setFirstName(const std::string &first);
+    void setLastName(const std::string &last);
+    void setNickname(const std::string &nick);
+    void setPhoneNumber(const std::string &phoneNumber);
+    void setDarkestSecret(const std::string &darkestSecret);
+
 };
 
 #endif

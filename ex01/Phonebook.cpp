@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 18:28:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/11 15:54:34 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:58:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,8 @@ void Phonebook::add()
 
 void Phonebook::search() const
 {
-	int index;
+	int index = 11;
 
-	std::cout << CLEAR << "Searching Contact" << std::endl;
 	if (this->id == 0)
 	{
 		std::cout << "No contacts!" << std::endl;
@@ -91,20 +90,21 @@ void Phonebook::search() const
 		std::cin.ignore();
 		return ;
 	}
-	printTable();
-	std::cout << "Input the Index of the Contact:" << std::endl;
-	std::cin >> index;
-	if(std::cin.eof())
-		std::cout << "Exiting...", std::exit(1);
-	std::cin.ignore();
-	if (index > 8 || index < 0 || index > id)
-	{
-		std::cout << "Invalid Index" << std::endl;
-		std::cout << "Press Enter to continue" << std::endl;
-		std::cin.ignore();
-		return ;
-	}
-	printIndex(index -1);
+    while(index > 8 || index <= 0 || index > id) {
+        std::cout << CLEAR << "Searching Contact" << std::endl;
+        printTable();
+        std::cout << "Input the Index of the Contact:" << std::endl;
+        std::cin >> index;
+        if (std::cin.eof())
+            std::cout << "Exiting...", std::exit(1);
+        std::cin.ignore();
+        if (index > 8 || index <= 0 || index > id) {
+            std::cout << "Invalid Index" << std::endl;
+            std::cout << "Press Enter to continue" << std::endl;
+            std::cin.ignore();
+        }
+    }
+	printIndex(index - 1);
 	std::cin.ignore();
 }
 
