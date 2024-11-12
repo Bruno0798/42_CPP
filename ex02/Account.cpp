@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:49:11 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/12 09:18:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:40:14 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ Account::Account(int initial_deposit):_accountIndex(_nbAccounts), _amount(initia
 
 Account::~Account()
 {
-
+	std::cout	<< "index:" << _accountIndex
+				<< ";amount:" << _amount
+				<< ";closed"
+	<<std::endl;
 }
 
 
@@ -74,15 +77,16 @@ void Account::makeDeposit(int deposit)
 {
 	_nbDeposits++;
 	_totalNbDeposits++;
+	_totalAmount +=deposit;
+	_amount +=deposit;
 
-	std::cout	<< ";index:" << _accountIndex
-				<< ";p_amount:" << _amount
+
+	std::cout	<< "index:" << _accountIndex
+				<< ";p_amount:" << _amount - deposit
 				<< ";deposit:" << deposit
-				<< ";amount:" << _amount + deposit
+				<< ";amount:" << _amount
 				<< ";nb_deposits:" << _nbDeposits
 	<< std::endl;
-
-	_amount += deposit;
 }
 
 bool Account::makeWithdrawal(int withdrawal)
@@ -90,11 +94,16 @@ bool Account::makeWithdrawal(int withdrawal)
 	_nbWithdrawals++;
 
 	std::cout	<< "index:" << _accountIndex
-				<< ";p_amount:" << _amount
-				<< "withdrawal:" << withdrawal
-				<< ""
+				<< ";p_amount:" << withdrawal;
+	if(withdrawal > _amount)
+	{
+		std::cout << "withdrawal: refused";
+		return false;
+	}
 
+	std::cout << ";withdrawal:" << withdrawal
+			  << ";amount:" << _amount
+			  << ";nb_withdrawals:" << _nbWithdrawals
 	<< std::endl;
-
 	return true;
 }
