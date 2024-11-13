@@ -23,14 +23,15 @@ class Phonebook {
 private:
 	Contact contacts[8];
 	int	id;
+
+    static void printContacts(const std::string &text) ;
+    void printIndex(int index) const;
+    void promptUser(std::string prompt, std::string &variable);
+    void printTable() const;
 public:
 	Phonebook();
 
 	void add();
-	static void printContacts(const std::string &text) ;
-	void printIndex(int index) const;
-	void promptUser(std::string prompt, std::string &variable);
-	void printTable() const;
 	void search() const;
 };
 

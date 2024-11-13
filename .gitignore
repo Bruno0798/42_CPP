@@ -1,0 +1,16 @@
+# Ignore .idea and .vscode directories
+.idea/
+.vscode/
+
+# Ignore object files and executables
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+
+# Ignore binaries produced by Makefiles
+bin/
