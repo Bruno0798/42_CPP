@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:48:52 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/08 14:00:13 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:30:47 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,5 @@ int main(const int argc, char* argv[])
 		std::cout << std::endl;
 
 	}
-	while(1)
-	{
-		printf("Hello World");
-	}
-
 	return 0;
 }
