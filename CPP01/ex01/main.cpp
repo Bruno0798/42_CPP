@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:34:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 16:00:03 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:37:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ int getPositiveNumberOfZombies() {
     return numberZombies;
 }
 
-int main(void) {
+int main(int argc, char **argv) {
+
+    (void)argv;
+
+    if(argc != 1)
+        std::cout << "You dont need arguments for this one!", exit(1);
+    
     int numberZombies = getPositiveNumberOfZombies();
     std::string name;
 
