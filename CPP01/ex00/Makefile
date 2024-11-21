@@ -20,3 +20,11 @@ fclean: clean
 		rm -f $(NAME)
 
 re: fclean all
+
+# Leaks/Valgrind test target
+leaks: $(NAME)
+ifeq ($(OS), Darwin)
+	leaks -atExit -- ./$(NAME)
+else
+	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+endif

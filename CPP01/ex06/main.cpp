@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/14 18:25:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 18:43:41 by bsousa-d         ###   ########.fr       */
+/*   Created: 2024/11/21 20:05:38 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/11/21 20:05:38 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_HPP
-#define HUMANA_HPP
-#include <string>
+#include <iostream>
+#include "Harl.hpp"
 
-#include "Weapon.hpp"
+int main(int argc, char **argv) {
+	if (argc != 2) {
+		std::cerr << "Usage: " << argv[0] << " <level>" << std::endl;
+		return 1;
+	}
 
+	Harl harl;
+	harl.complain(argv[1]);
 
-class HumanA {
-private:
-	Weapon &_Weapon;
-	std::string _name;
-public:
-	HumanA(std::string name, Weapon &weapon);
-	~HumanA();
-	void attack();
-};
-
-#endif //HUMANA_HPP
+	return 0;
+}

@@ -15,9 +15,11 @@
 #include <cstdlib>
 
 // Function to get a positive number of zombies from the user
-int getPositiveNumberOfZombies() {
+int getPositiveNumberOfZombies()
+{
     int numberZombies = 0;
-    while (numberZombies <= 0) {
+    while (numberZombies <= 0)
+    {
         std::cout << CLEAR;
         std::cout << "Enter a positive number of zombies for the Horde: ";
         std::cin >> numberZombies;
