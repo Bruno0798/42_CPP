@@ -14,7 +14,6 @@
 #include "Zombie.hpp"
 #include <cstdlib>
 
-// Function to get a positive number of zombies from the user
 int getPositiveNumberOfZombies()
 {
     int numberZombies = 0;
@@ -24,44 +23,48 @@ int getPositiveNumberOfZombies()
         std::cout << "Enter a positive number of zombies for the Horde: ";
         std::cin >> numberZombies;
 
-        // Check if the input failed or if it's not positive
-        if (std::cin.eof()) {
+        if (std::cin.eof())
+        {
             std::cerr << "\nEOF detected. Exiting program." << std::endl;
-            std::exit(1);
+            return 1;
         } else if (std::cin.fail() || numberZombies <= 0) {
-            std::cin.clear(); // Clear the fail state
+            std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-            numberZombies = 0; // Reset numberZombies to keep the loop going
+            numberZombies = 0;
             std::cout << "Invalid input. Please enter a positive integer.\n";
         }
     }
     return numberZombies;
 }
 
-int main(int argc, char **argv) {
-
+int main(int argc, char **argv)
+{
     (void)argv;
-
     if(argc != 1)
-        std::cout << "You dont need arguments for this one!", exit(1);
-    
+    {
+        std::cout << "You dont need arguments for this one!";
+        return (1);
+    }
+
     int numberZombies = getPositiveNumberOfZombies();
     std::string name;
-
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "What name should we call them: ";
     std::getline(std::cin, name);
-
-    if (std::cin.eof()) {
-        std::cerr << "\nEOF detected. Exiting program." << std::endl;
-        exit(1);
+    while (name.empty()) {
+        std::cout << "Name cannot be empty. Please enter a valid name: ";
+        std::getline(std::cin, name);
+    }
+    if (std::cin.fail() || std::cin.eof())
+    {
+        std::cerr << "\nInput error detected. Exiting program." << std::endl;
+        return 1;
     }
 
     Zombie *horde = zombieHorde(numberZombies, name);
 
-    for (int i = 0; i < numberZombies; ++i) {
+    for (int i = 0; i < numberZombies; ++i)
         horde[i].announce();
-    }
     delete[] horde;
 
     return 0;
