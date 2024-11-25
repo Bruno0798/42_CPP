@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:34:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 20:37:12 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:37:21 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int getPositiveNumberOfZombies()
         {
             std::cerr << "\nEOF detected. Exiting program." << std::endl;
             return 1;
-        } else if (std::cin.fail() || numberZombies <= 0) {
+        } else if (std::cin.fail() || numberZombies <= 0 || numberZombies >= 1000) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
             numberZombies = 0;
