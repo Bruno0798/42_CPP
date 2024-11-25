@@ -6,16 +6,16 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:25:57 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 18:42:38 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:49:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 #include <iostream>
 
-HumanB::HumanB() : _Weapon(nullptr) {}
+HumanB::HumanB() : _Weapon(NULL) {}
 
-HumanB::HumanB(std::string name) : _Weapon(nullptr), _name(name) {}
+HumanB::HumanB(std::string name) : _Weapon(NULL), _name(name) {}
 
 HumanB::HumanB(std::string name, Weapon &weapon) : _Weapon(&weapon), _name(name) {}
 

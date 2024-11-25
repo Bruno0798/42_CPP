@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:32:22 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 13:07:05 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:06:54 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ Zombie::Zombie(std::string name)
     _name = name;
 }
 
+Zombie::~Zombie()
+{
+	std::cout << _name << " Destructor" << std::endl;
+}
 
 void Zombie::announce()
 {

@@ -1,4 +1,4 @@
-NAME = zombie
+NAME = sed
 
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)

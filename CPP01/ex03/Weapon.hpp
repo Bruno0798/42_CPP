@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:21:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/14 18:25:06 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:24:50 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ private:
 public:
 	Weapon(std::string type);
 	~Weapon();
-	std::string getType();
+	std::string getType() const;
 	void setType(std::string type);
 };
 

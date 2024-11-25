@@ -12,7 +12,18 @@
 
 
 #include <iostream>
-int main(void)
+
+#include "Harl.hpp"
+
+int main()
 {
-	std::cout
+	Harl harl;
+
+	harl.complain("DEBUG");
+	harl.complain("INFO");
+	harl.complain("WARNING");
+	harl.complain("ERROR");
+	harl.complain("INVALID");
+
+	return 0;
 }

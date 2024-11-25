@@ -6,13 +6,12 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 14:34:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/11/25 13:37:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:14:50 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits>
 #include "Zombie.hpp"
-#include <cstdlib>
 
 int getPositiveNumberOfZombies()
 {
@@ -29,7 +28,7 @@ int getPositiveNumberOfZombies()
             return 1;
         } else if (std::cin.fail() || numberZombies <= 0 || numberZombies >= 1000) {
             std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             numberZombies = 0;
             std::cout << "Invalid input. Please enter a positive integer.\n";
         }
@@ -39,6 +38,7 @@ int getPositiveNumberOfZombies()
 
 int main(int argc, char **argv)
 {
+
     (void)argv;
     if(argc != 1)
     {

@@ -22,6 +22,7 @@ private:
     
 public:
     Zombie(std::string name);
+	~Zombie();
     void announce();
     static Zombie* newZombie(std::string name);
 };
