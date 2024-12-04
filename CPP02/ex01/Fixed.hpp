@@ -22,7 +22,7 @@ private:
 	static const int _bits = 8;
 public:
 	Fixed();
-	Fixed(Fixed &cpy);
+	Fixed(const Fixed &cpy);
 	Fixed(int number);
 	Fixed(float number);
 	~Fixed();
@@ -32,8 +32,7 @@ public:
 	int getRawBits() const;
 	int toInt() const;
 	float toFloat() const;
-
 };
-
+std::ostream	&operator<<(std::ostream &out, const Fixed &obj);
 
 #endif

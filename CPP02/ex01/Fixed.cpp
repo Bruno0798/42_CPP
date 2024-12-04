@@ -17,21 +17,20 @@ Fixed::Fixed() : _value(0)
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(Fixed &cpy)
+Fixed::Fixed(const Fixed &cpy)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = cpy;
 }
 
-Fixed::Fixed(const int number) : _value(number << _value)
+Fixed::Fixed(const int number) : _value(number << _bits)
 {
 	std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float number)
+Fixed::Fixed(const float number) : _value(roundf(number * (1 << _bits)))
 {
 	std::cout << "Float constructor called" << std::endl;
-	_value = roundf(number * (1 << _bits));
 }
 
 Fixed::~Fixed()
