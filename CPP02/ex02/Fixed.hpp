@@ -29,7 +29,7 @@ public:
 	bool operator!=(const Fixed &obj) const;
 	Fixed operator++();
 	Fixed operator++(int);
-	int operator--() const;
+	Fixed operator--();
 	Fixed operator--(int);
 	Fixed operator+(const Fixed &obj);
 	Fixed operator-(const Fixed &obj);

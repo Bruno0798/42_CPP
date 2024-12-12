@@ -2,33 +2,33 @@
 
 Fixed::Fixed() : _value()
 {
-//	std::cout << "Default Constructor Called" << std::endl;
+	std::cout << "Default Constructor Called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &cpy)
 {
-//	std::cout << "Copy Constructor Called" << std::endl;
+	std::cout << "Copy Constructor Called" << std::endl;
 	*this = cpy;
 }
 
 Fixed::Fixed(const int number) : _value(number << _bits)
 {
-//	std::cout << "Int Constructor Called" << std::endl;
+	std::cout << "Int Constructor Called" << std::endl;
 }
 
 Fixed::Fixed(float number) : _value(roundf(number * (1 << _bits)))
 {
-//	std::cout << "Float Constructor Called" << std::endl;
+	std::cout << "Float Constructor Called" << std::endl;
 }
 
 Fixed::~Fixed()
 {
-//	std::cout << "Destructor Called" << std::endl;
+	std::cout << "Destructor Called" << std::endl;
 }
 
 Fixed &Fixed::operator=(const Fixed &obj)
 {
-//	std::cout << "Copy Assignment Called" << std::endl;
+	std::cout << "Copy Assignment Called" << std::endl;
 
 	if (this == &obj)
 		return *this;
@@ -39,13 +39,13 @@ Fixed &Fixed::operator=(const Fixed &obj)
 
 int Fixed::getRawBits() const
 {
-//	std::cout << "getRawBits Member Function Called" << std::endl;
+	std::cout << "getRawBits Member Function Called" << std::endl;
 	return _value;
 }
 
 void Fixed::setRawBits(int raw)
 {
-//	std::cout << "setRawBits Member Function Called" << std::endl;
+	std::cout << "setRawBits Member Function Called" << std::endl;
 	_value = raw;
 }
 
@@ -102,9 +102,10 @@ Fixed Fixed::operator++(int)
 	return tmp;
 }
 
-int Fixed::operator--() const
+Fixed Fixed::operator--()
 {
-	return _value - 1;
+	_value = _value - 1;
+	return *this;
 }
 
 Fixed Fixed::operator--(int)
@@ -148,8 +149,6 @@ const Fixed &Fixed::min(const Fixed& frst, const Fixed& scnd)
 		return frst;
 	return scnd;
 }
-
-
 
 const Fixed &Fixed::max(const Fixed& frst, const Fixed& scnd)
 {
