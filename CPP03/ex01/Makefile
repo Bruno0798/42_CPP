@@ -1,6 +1,6 @@
 NAME = clap
 
-SRC = main.cpp ClapTrap.cpp ScapTrap.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98

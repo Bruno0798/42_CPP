@@ -1,13 +1,9 @@
 #include "ClapTrap.hpp"
 
 
-ClapTrap::ClapTrap()
+ClapTrap::ClapTrap() : _name("empty"), _hitPoints(100), _energyPoints(50), _attackDamage(20)
 {
 	std::cout << "ClapTrap Default Constructor Called." << std::endl;
-	_name = "empty";
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamage = 20;
 }
 
 ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
@@ -15,10 +11,9 @@ ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _ener
 	std::cout << "ClapTrap Constructor with name called." << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &obj)
+ClapTrap::ClapTrap(const ClapTrap &obj) : _name(obj._name), _hitPoints(obj._hitPoints), _energyPoints(obj._energyPoints), _attackDamage(obj._attackDamage)
 {
 	std::cout << "Copy constructor" << std::endl;
-	*this = obj;
 }
 
 ClapTrap::~ClapTrap()
@@ -45,10 +40,19 @@ void ClapTrap::attack(const std::string &target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << "ClapTrap " << _name << " received " << amount << " of damage." << std::endl;
+	if (_hitPoints > amount)
+	{
+		_hitPoints -= amount;
+	}
+	else
+	{
+		_hitPoints = 0;
+	}
+	std::cout << "ClapTrap " << _name << " received " << amount << " of damage. Current hit points: " << _hitPoints << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	std::cout << "ClapTrap " << _name << " healed for " << amount << std::endl;
+	_hitPoints += amount;
+	std::cout << "ClapTrap " << _name << " healed for " << amount << ". Current hit points: " << _hitPoints << std::endl;
 }
