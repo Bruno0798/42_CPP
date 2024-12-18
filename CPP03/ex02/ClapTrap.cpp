@@ -11,9 +11,10 @@ ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _ener
 	std::cout << "ClapTrap Constructor with name called." << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &obj) : _name(obj._name), _hitPoints(obj._hitPoints), _energyPoints(obj._energyPoints), _attackDamage(obj._attackDamage)
+ClapTrap::ClapTrap(const ClapTrap &obj)
 {
-	std::cout << "Copy constructor" << std::endl;
+	std::cout << "ClapTrap Copy constructor" << std::endl;
+	*this = obj;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &obj)
@@ -34,12 +35,12 @@ ClapTrap::~ClapTrap()
 
 void ClapTrap::attack(const std::string &target)
 {
-	if (this->_energyPoints <= 0)
+	if (_energyPoints <= 0)
 	{
 	    std::cout << "ClapTrap " << _name << " cant attack, because it has no energy Points!" << std::endl;
 		return ;
 	}
-	if (this->_hitPoints <= 0)
+	if (_hitPoints <= 0)
 	{
 	    std::cout << "ClapTrap " << _name << " cant attack, because it has no hitPoints!" << std::endl;
 		return ;
@@ -62,4 +63,9 @@ void ClapTrap::beRepaired(unsigned int amount)
 {
 	_hitPoints += amount;
 	std::cout << "ClapTrap " << _name << " healed for " << amount << ". Current hit points: " << _hitPoints << std::endl;
+}
+
+int ClapTrap::getEnergyPoints() const
+{
+	return _energyPoints;
 }

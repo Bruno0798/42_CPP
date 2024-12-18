@@ -1,13 +1,24 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main()
 {
-	ClapTrap robot1("robot1");
-	ClapTrap robot2("robot2");
+	ClapTrap Clap("ClapTrap");
+	ScavTrap Scav("ScavTrap");
 
-	robot1.attack("robot2");
-	robot2.takeDamage(5);
-	robot2.beRepaired(3);
+	std::cout << "\033[32m\nScavTrap class Test\033[0m" << std::endl;
+	Scav.attack("test");
 
-    return 0;
+	Scav.takeDamage(900);
+
+	Scav.beRepaired(12);
+
+	Scav.guardGate();
+
+	std::cout << "\033[32mOperator = Test\033[0m" << std::endl;
+	ScavTrap ScavCopy;
+
+	ScavCopy = Scav;
+
+	return (0);
 }
