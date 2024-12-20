@@ -25,12 +25,24 @@ void pauseExecution()
 
 int main()
 {
+	system("clear");
 	displayTitle("Constructors");
+	ClapTrap defaultClap;
+	std::cout << std::endl;
 	ClapTrap clap("Clapy");
 	std::cout << std::endl;
 	ScavTrap scav("Scavy");
+	std::cout << scav.getName() << std::endl;
 	std::cout << std::endl;
 	FragTrap frag("Fragy");
+	std::cout << frag.getName() << std::endl;
+	std::cout << std::endl;
+	ClapTrap copyClap(clap);
+	std::cout << std::endl;
+	ScavTrap copyScav(scav);
+	std::cout << std::endl;
+	FragTrap copyFrag(frag);
+	std::cout << std::endl;
 	pauseExecution();
 
 	displayTitle("ClapTrap Class Tests");
@@ -163,7 +175,6 @@ int main()
 	pauseExecution();
 
 	displayTitle("Destructors");
-	// Objects go out of scope here, destructors are automatically called.
 
 	return 0;
 }

@@ -1,13 +1,9 @@
 #include "ClapTrap.hpp"
 
 
-ClapTrap::ClapTrap()
+ClapTrap::ClapTrap() : _name("empty"), _hitPoints(10), _energyPoints(50), _attackDamage(20)
 {
-	std::cout << "Default Constructor Called." << std::endl;
-	_name = "empty";
-	_hitPoints = 10;
-	_energyPoints = 10;
-	_attackDamage = 0;
+	std::cout << "ClapTrap Default Constructor Called." << std::endl;
 }
 
 ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
@@ -34,7 +30,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &obj)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "Destructor Called." << std::endl;
+	std::cout << "ClapTrap Destructor Called." << std::endl;
 }
 
 void ClapTrap::attack(const std::string &target)
@@ -55,12 +51,57 @@ void ClapTrap::attack(const std::string &target)
 	_energyPoints -= 1;
 }
 
-void ClapTrap::takeDamage(unsigned int amount)
+void ClapTrap::takeDamage(int amount)
 {
-	std::cout << "ClapTrap " << _name << " received " << amount << " of damage." << std::endl;
+	if (_hitPoints > amount)
+		_hitPoints -= amount;
+	else
+		_hitPoints = 0;
+	std::cout << "ClapTrap " << _name << " received " << amount << " of damage. Current hit points: " << _hitPoints << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	std::cout << "ClapTrap " << _name << " healed for " << amount << std::endl;
+	_hitPoints += amount;
+	std::cout << "ClapTrap " << _name << " healed for " << amount << ". Current hit points: " << _hitPoints << std::endl;
+}
+
+std::string ClapTrap::getName() const
+{
+	return _name;
+}
+
+int ClapTrap::getHitPoints() const
+{
+	return _hitPoints;
+}
+
+int ClapTrap::getEnergyPoints() const
+{
+	return _energyPoints;
+}
+
+int ClapTrap::getAttackDamage() const
+{
+	return _attackDamage;
+}
+
+void ClapTrap::setName(const std::string& name)
+{
+	_name = name;
+}
+
+void ClapTrap::setHitPoints(int hitPoints)
+{
+	_hitPoints = hitPoints;
+}
+
+void ClapTrap::setEnergyPoints(int energyPoints)
+{
+	_energyPoints = energyPoints;
+}
+
+void ClapTrap::setAttackDamage(int attackDamage)
+{
+	_attackDamage = attackDamage;
 }
