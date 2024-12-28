@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/20 19:15:21 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/12/24 20:31:21 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ClapTrap.hpp"
 
 
@@ -13,7 +25,7 @@ ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _ener
 
 ClapTrap::ClapTrap(const ClapTrap &obj) : _name(obj._name), _hitPoints(obj._hitPoints), _energyPoints(obj._energyPoints), _attackDamage(obj._attackDamage)
 {
-	std::cout << "Copy constructor" << std::endl;
+	std::cout << "ClapTrap Copy constructor" << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &obj)

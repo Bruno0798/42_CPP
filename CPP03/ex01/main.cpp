@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/20 19:15:21 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/12/24 20:34:56 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 
@@ -31,7 +43,6 @@ int main()
 	ClapTrap clap("Clapy");
 	std::cout << std::endl;
 	ScavTrap scav("Scavy");
-	std::cout << scav.getName() << std::endl;
 	std::cout << std::endl;
 	ClapTrap copyClap(clap);
 	std::cout << std::endl;
@@ -50,14 +61,29 @@ int main()
 	displaySubtitle("Edge Cases");
 
 	std::cout << "\033[1;31mTesting: Taking more damage than hit points.\033[0m \033[1;37m(Expected: HP should reduce to 0 but not go negative.)\033[0m\n";
-	defaultClap.takeDamage(15);
+	defaultClap.takeDamage(999);
 
 	std::cout << "\033[1;31mTesting: Attempting to attack with zero hit points.\033[0m \033[1;37m(Expected: Attack should not be allowed.)\033[0m\n";
 	defaultClap.attack("target2");
 
 	std::cout << "\033[1;31mTesting: Repairing after reaching zero hit points.\033[0m \033[1;37m(Expected: HP should increase.)\033[0m\n";
-	defaultClap.beRepaired(5);
+	defaultClap.beRepaired(100);
 	pauseExecution();
+
+	displayTitle("Energy Depletion");
+	std::cout << "\033[1;32mTesting: Attacking until energy points reach zero.\033[0m \033[1;37m(Expected: Energy decreases with each attack.)\033[0m\n";
+	defaultClap.setEnergyPoints(5);
+	while (defaultClap.getEnergyPoints() > 0)
+	{
+		std::cout << "\033[1;34mEnergy Points: " << defaultClap.getEnergyPoints() << "\033[0m ";
+		defaultClap.attack("Energy Target");
+	}
+
+	std::cout << "\033[1;31mTesting: Attempting to attack with zero energy points.\033[0m \033[1;37m(Expected: Attack should not be allowed.)\033[0m\n";
+	defaultClap.attack("Out of Energy");
+	pauseExecution();
+
+	displayTitle("Destructors");
 
 
 	return (0);
