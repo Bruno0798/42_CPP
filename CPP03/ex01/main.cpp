@@ -83,8 +83,43 @@ int main()
 	defaultClap.attack("Out of Energy");
 	pauseExecution();
 
-	displayTitle("Destructors");
+	displayTitle("ScavTrap Class Tests");
+	displaySubtitle("Basic Functionality");
+	scav.attack("target2");
+	scav.takeDamage(20);
+	scav.beRepaired(10);
+	scav.guardGate();
+	pauseExecution();
 
+	displayTitle("ScavTrap Class Tests");
+	displaySubtitle("Edge Cases");
+
+	std::cout << "\033[1;31mTesting: Taking significant damage.\033[0m \033[1;37m(Expected: HP should reduce but not go negative.)\033[0m\n";
+	scav.takeDamage(900);
+
+	std::cout << "\033[1;31mTesting: Attempting to attack with low energy points.\033[0m \033[1;37m(Expected: Attack should succeed if energy > 0.)\033[0m\n";
+	scav.attack("target3");
+
+	std::cout << "\033[1;31mTesting: Repairing after low energy points.\033[0m \033[1;37m(Expected: HP should increase but not exceed max HP.)\033[0m\n";
+	scav.beRepaired(50);
+	pauseExecution();
+
+	displayTitle("ScavTrap Class Tests");
+	displaySubtitle("Energy Depletion");
+
+	std::cout << "\033[1;32mTesting: Attacking until energy points reach zero.\033[0m \033[1;37m(Expected: Energy decreases with each attack.)\033[0m\n";
+	scav.setEnergyPoints(5);
+	while (scav.getEnergyPoints() > 0)
+	{
+		std::cout << "\033[1;34mEnergy Points: " << scav.getEnergyPoints() << "\033[0m ";
+		scav.attack("Energy Target");
+	}
+
+	std::cout << "\033[1;31mTesting: Attempting to attack with zero energy points.\033[0m \033[1;37m(Expected: Attack should not be allowed.)\033[0m\n";
+	scav.attack("Out of Energy");
+	pauseExecution();
+
+	displayTitle("Destructors");
 
 	return (0);
 }

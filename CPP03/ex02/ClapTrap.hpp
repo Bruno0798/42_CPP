@@ -32,7 +32,6 @@ public:
 	void setEnergyPoints(int energyPoints);
 	void setAttackDamage(int attackDamage);
 
-	int getEnergyPoints() const;
 };
 
 #endif

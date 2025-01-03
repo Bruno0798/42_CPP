@@ -91,7 +91,7 @@ bool Fixed::operator!=(const Fixed &obj) const
 
 Fixed Fixed::operator++()
 {
-	this->_value = _value + 1;
+	_value = _value + 1;
 	return *this;
 }
 

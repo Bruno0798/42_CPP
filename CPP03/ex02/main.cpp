@@ -31,11 +31,13 @@ int main()
 	std::cout << std::endl;
 	ClapTrap clap("Clapy");
 	std::cout << std::endl;
+	ScavTrap defaultScav;
+	std::cout << std::endl;
 	ScavTrap scav("Scavy");
-	std::cout << scav.getName() << std::endl;
+	std::cout << std::endl;
+	FragTrap defaultFrag;
 	std::cout << std::endl;
 	FragTrap frag("Fragy");
-	std::cout << frag.getName() << std::endl;
 	std::cout << std::endl;
 	ClapTrap copyClap(clap);
 	std::cout << std::endl;
