@@ -1,9 +1,9 @@
 #ifndef ANIMAL_HPP
 #define ANIMAL_HPP
+
 #include <iostream>
 
-class Animal
-{
+class Animal {
 protected:
 	std::string _type;
 public:
@@ -18,5 +18,6 @@ public:
 	std::string getType() const;
 	void setType(std::string &type);
 };
+
 
 #endif
