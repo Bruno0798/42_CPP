@@ -9,7 +9,6 @@ Dog::Dog() : _brain(new Brain())
 Dog::Dog(const Dog &obj) : Animal(obj), _brain(new Brain(*obj._brain))
 {
 	std::cout << "Dog Copy Constructor Called" << std::endl;
-	*this = obj;
 }
 
 Dog::~Dog()

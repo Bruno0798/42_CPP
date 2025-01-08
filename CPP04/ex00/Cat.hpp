@@ -1,13 +1,12 @@
-#ifndef CPP04_CAT_HPP
-#define CPP04_CAT_HPP
-#include <iostream>
+#ifndef CAT_HPP
+#define CAT_HPP
 #include "Animal.hpp"
 
 class Cat : public Animal
 {
 public:
 	Cat();
-	Cat(const Cat &obbj);
+	Cat(const Cat &obj);
 	virtual ~Cat();
 
 	Cat &operator=(const Cat &obj);
@@ -15,4 +14,4 @@ public:
 	virtual void makeSound() const;
 };
 
-#endif //CPP04_CAT_HPP
+#endif

@@ -11,7 +11,7 @@ private:
 	Brain* _brain;
 public:
 	Cat();
-	Cat(const Cat &obbj);
+	Cat(const Cat &obj);
 	virtual ~Cat();
 
 	Cat &operator=(const Cat &obj);

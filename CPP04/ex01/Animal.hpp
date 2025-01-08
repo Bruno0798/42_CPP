@@ -19,5 +19,4 @@ public:
 	void setType(std::string &type);
 };
 
-
 #endif

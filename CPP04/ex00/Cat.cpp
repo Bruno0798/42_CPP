@@ -9,6 +9,7 @@ Cat::Cat()
 Cat::Cat(const Cat &obj) : Animal(obj)
 {
 	std::cout << "Cat Copy Constructor Called" << std::endl;
+//	_type = obj._type;
 }
 
 Cat::~Cat()

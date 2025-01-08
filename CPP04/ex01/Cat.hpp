@@ -1,7 +1,6 @@
-#ifndef CPP04_CAT_HPP
-#define CPP04_CAT_HPP
+#ifndef CAT_HPP
+#define CAT_HPP
 
-#include <iostream>
 #include "Animal.hpp"
 #include "Brain.hpp"
 
@@ -21,4 +20,4 @@ public:
 };
 
 
-#endif //CPP04_CAT_HPP
+#endif

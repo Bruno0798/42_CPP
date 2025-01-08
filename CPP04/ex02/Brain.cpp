@@ -5,7 +5,6 @@ Brain::Brain()
 	std::cout << "Brain Default Constructor Called" << std::endl;
 	for (int i = 0; i < 100; ++i)
 		ideas[i] = "Default idea";
-
 }
 
 Brain::Brain(const Brain &obj)

@@ -9,7 +9,7 @@ Dog::Dog()
 Dog::Dog(const Dog &obj) : Animal(obj)
 {
 	std::cout << "Dog Copy Constructor Called" << std::endl;
-	*this = obj;
+	_type = obj._type;
 }
 
 Dog::~Dog()

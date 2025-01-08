@@ -5,7 +5,6 @@
 
 int main()
 {
-	AAnimal test;
 	{
 		const int size = 10;
 		AAnimal *animals[size];
