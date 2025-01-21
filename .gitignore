@@ -11,6 +11,7 @@
 *.so
 *.dll
 *.dylib
+*.DS_Store
 
 # Ignore binaries produced by Makefiles
 bin/
