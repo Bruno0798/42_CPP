@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <stdexcept>
-#include "Form.hpp"
+#include "AForm.hpp"
 
 #define blue "\033[34m"
 #define red "\033[31m"
@@ -13,7 +13,7 @@
 #define cyan "\033[36m"
 #define reset "\033[0m"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -33,7 +33,7 @@ public:
 	void incrementGrade();
 	void decrementGrade();
 
-	void signForm(Form &form) const;
+	void signForm(AForm &form) const;
 
 	class GradeTooHighException : public std::exception
 	{
