@@ -11,13 +11,13 @@ class AForm
 private:
 	const std::string _name;
 	bool _isSigned;
-	const int reqSign;
-	const int execSign;
+	const int _reqSign;
+	const int _execSign;
+	const std::string _target;
 
 public:
 	AForm();
-	AForm(const std::string& name);
-	AForm(const std::string& name, int reqSign, int execSign);
+	AForm(const std::string& name, int reqSign, int execSign, const std::string& target);
 	AForm(const AForm &other);
 	~AForm();
 	AForm &operator=(const AForm &other);
@@ -26,6 +26,9 @@ public:
 	bool getIsSigned() const;
 	int getReqSign() const;
 	int getExecSign() const;
+	std::string getTarget() const;
+	void execute(Bureaucrat const& executor) const;
+
 	void beSigned(const Bureaucrat &bureaucrat);
 
 	class GradeTooHighException : public std::exception {

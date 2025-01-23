@@ -16,7 +16,6 @@ private:
 
 public:
 	Form();
-	Form(const std::string& name);
 	Form(const std::string& name, int reqSign, int execSign);
 	Form(const Form &other);
 	~Form();

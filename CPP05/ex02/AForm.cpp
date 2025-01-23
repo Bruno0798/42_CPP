@@ -2,37 +2,35 @@
 #include "Bureaucrat.hpp"
 
 AForm::AForm()
-		: _name("Default"), _isSigned(false), reqSign(1), execSign(1)
+		: _name("Default"), _isSigned(false), _reqSign(1), _execSign(1), _target("Default")
 {
-	std::cout << "Form Default Constructor Called" << std::endl;
+	std::cout << "AForm Default Constructor Called" << std::endl;
 }
 
-AForm::AForm(const std::string& name)
-		: _name(name), _isSigned(false), reqSign(1), execSign(1)
+AForm::AForm(const std::string& name, int reqSign, int execSign, const std::string& target)
+		: _name(name), _isSigned(false), _reqSign(reqSign), _execSign(execSign), _target(target)
 {
-	std::cout << "Form Constructor with Name Called" << std::endl;
-}
-
-AForm::AForm(const std::string& name, int reqSign, int execSign)
-		: _name(name), _isSigned(false), reqSign(reqSign), execSign(execSign)
-{
-	std::cout << "Full Form Constructor Called" << std::endl;
+	std::cout << "Full AForm Constructor Called" << std::endl;
+	if (getReqSign() < 1 || getExecSign() < 1)
+		throw GradeTooHighException();
+	if (getReqSign() > 150 || getExecSign() > 150)
+		throw GradeTooLowException();
 }
 
 AForm::AForm(const AForm &other)
-		: _name(other._name), _isSigned(other._isSigned), reqSign(other.reqSign), execSign(other.execSign)
+		: _name(other._name), _isSigned(other._isSigned), _reqSign(other._reqSign), _execSign(other._execSign)
 {
-	std::cout << "Form Copy Constructor Called" << std::endl;
+	std::cout << "AForm Copy Constructor Called" << std::endl;
 }
 
 AForm::~AForm()
 {
-	std::cout << "Form Destructor Called" << std::endl;
+	std::cout << "AForm Destructor Called" << std::endl;
 }
 
 AForm &AForm::operator=(const AForm &other)
 {
-	std::cout << "Form Assignment Operator Called" << std::endl;
+	std::cout << "AForm Assignment Operator Called" << std::endl;
 	if (this != &other)
 		_isSigned = other._isSigned;
 	return *this;
@@ -50,20 +48,29 @@ bool AForm::getIsSigned() const
 
 int AForm::getReqSign() const
 {
-	return reqSign;
+	return _reqSign;
 }
 
 int AForm::getExecSign() const
 {
-	return execSign;
+	return _execSign;
+}
+
+std::string AForm::getTarget() const
+{
+	return _target;
 }
 
 void AForm::beSigned(const Bureaucrat &bureaucrat)
 {
-	if (bureaucrat.getGrade() >= reqSign)
+	if (bureaucrat.getGrade() >= _reqSign)
 		throw GradeTooLowException();
 	else
 		_isSigned = true;
+}
+void AForm::execute(const Bureaucrat &executor) const
+{
+
 }
 
 const char *AForm::GradeTooHighException::what() const throw()

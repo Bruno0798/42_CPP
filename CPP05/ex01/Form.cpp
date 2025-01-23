@@ -7,16 +7,14 @@ Form::Form()
 	std::cout << "Form Default Constructor Called" << std::endl;
 }
 
-Form::Form(const std::string& name)
-		: _name(name), _isSigned(false), reqSign(1), execSign(1)
-{
-	std::cout << "Form Constructor with Name Called" << std::endl;
-}
-
 Form::Form(const std::string& name, int reqSign, int execSign)
 		: _name(name), _isSigned(false), reqSign(reqSign), execSign(execSign)
 {
 	std::cout << "Full Form Constructor Called" << std::endl;
+	if (getReqSign() < 1 || getExecSign() < 1)
+		throw GradeTooHighException();
+	if (getReqSign() > 150 || getExecSign() > 150)
+		throw GradeTooLowException();
 }
 
 Form::Form(const Form &other)
