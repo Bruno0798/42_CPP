@@ -12,9 +12,11 @@ public:
 	static int const execSign = 137;
 
 	ShrubberyCreationForm();
-	~ShrubberyCreationForm();
+	ShrubberyCreationForm(const std::string& target);
 	ShrubberyCreationForm(const ShrubberyCreationForm &other);
 	ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
+	~ShrubberyCreationForm();
+	void executor() const;
 };
 
 #endif

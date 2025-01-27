@@ -7,6 +7,11 @@ AForm::AForm()
 	std::cout << "AForm Default Constructor Called" << std::endl;
 }
 
+AForm::AForm(const std::string &name, int reqSign, int execSign) : _name(name), _isSigned(false), _reqSign(reqSign), _execSign(execSign)
+{
+	std::cout << "AForm Data Constructor Called" << std::endl;
+}
+
 AForm::AForm(const std::string& name, int reqSign, int execSign, const std::string& target)
 		: _name(name), _isSigned(false), _reqSign(reqSign), _execSign(execSign), _target(target)
 {
@@ -63,14 +68,30 @@ std::string AForm::getTarget() const
 
 void AForm::beSigned(const Bureaucrat &bureaucrat)
 {
-	if (bureaucrat.getGrade() >= _reqSign)
-		throw GradeTooLowException();
-	else
-		_isSigned = true;
-}
-void AForm::execute(const Bureaucrat &executor) const
-{
+	if(!_isSigned) {
+		if ((bureaucrat.getGrade() >= _reqSign))
+			throw GradeTooLowException();
+		else
+			_isSigned = true;
+	} else
+		throw GradeAlreadySigned();
 
+}
+
+void	AForm::execute(Bureaucrat const &bureaucrat) const
+{
+	if (bureaucrat.getGrade() > this->getExecSign())
+		throw(GradeTooLowException());
+	else
+	{
+		if (this->getIsSigned())
+			this->executor();
+		else
+		{
+			std::cout << green << this->getName() << \
+				red << "is not signed!" << reset << "\n";
+		}
+	}
 }
 
 const char *AForm::GradeTooHighException::what() const throw()
@@ -81,6 +102,11 @@ const char *AForm::GradeTooHighException::what() const throw()
 const char* AForm::GradeTooLowException::what() const throw()
 {
 	return "Grade too Low!\n";
+}
+
+const char* AForm::GradeAlreadySigned::what() const throw()
+{
+	return "Already Signed a Form\n";
 }
 
 std::ostream& operator<<(std::ostream &output, const AForm& form)

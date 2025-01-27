@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
 
 class Bureaucrat;
 
@@ -17,6 +20,7 @@ private:
 
 public:
 	AForm();
+	AForm(const std::string& name, int reqSign, int execSign);
 	AForm(const std::string& name, int reqSign, int execSign, const std::string& target);
 	AForm(const AForm &other);
 	~AForm();
@@ -28,6 +32,7 @@ public:
 	int getExecSign() const;
 	std::string getTarget() const;
 	void execute(Bureaucrat const& executor) const;
+	virtual void	executor() const = 0;
 
 	void beSigned(const Bureaucrat &bureaucrat);
 
@@ -37,6 +42,11 @@ public:
 	};
 
 	class GradeTooLowException : public std::exception {
+	public:
+		const char *what() const throw();
+	};
+
+	class GradeAlreadySigned : public std::exception {
 	public:
 		const char *what() const throw();
 	};
