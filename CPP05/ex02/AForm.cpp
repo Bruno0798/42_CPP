@@ -89,7 +89,7 @@ void	AForm::execute(Bureaucrat const &bureaucrat) const
 		else
 		{
 			std::cout << green << this->getName() << \
-				red << "is not signed!" << reset << "\n";
+				red << " is not signed!" << reset << "\n";
 		}
 	}
 }
