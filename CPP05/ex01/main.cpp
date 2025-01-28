@@ -4,101 +4,121 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-int main() {
-	// Test default constructors, copy constructors, and assignment
+int main()
+{
 	{
-		std::cout << cyan << "\n[TEST 0] Constructors and Copy Mechanics" << reset << std::endl;
-		Form form;
-		std::cout << form << std::endl;
-		std::cout << std::endl;
-
-		Form form2("Crazy Stuff", 120, 50);
-		std::cout << form2 << std::endl;
-		std::cout << std::endl;
-		Bureaucrat tommy("Tommy", 1);
-		tommy.signForm(form2);
-
-		Form form3;
-		form3 = form2;
-		std::cout << magenta << "Form3 (after assignment from Form2):" << reset << std::endl;
-		std::cout << form3 << std::endl;
-
-		std::cout << std::endl;
-		Form form4(form2);
-		std::cout << magenta << "Form4 (copy constructed from Form2):" << reset << std::endl;
-		std::cout << form4 << std::endl;
-		std::cout << std::endl;
+		std::cout << cyan << "\n►►►►►►  " << "Create Form With Valid Grades" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		Form f("Form1", 5, 10);
+		std::cout << "Name:\t\t\t" << f.getName() << std::endl;
+		std::cout << "Required Sign Grade:\t" << f.getReqSign() << std::endl;
+		std::cout << "Required Execute Grade:\t" << f.getExecSign() << std::endl;
+		std::cout << "Is Signed:\t\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
 	}
 
-	std::cout << magenta << "\n--- Form Testing Suite ---" << reset << std::endl;
-	try {
-		std::cout << cyan << "\n[TEST 1] Signing Form Successfully" << reset << std::endl;
-		Form form2("Top Secret", 149, 1);
-		Bureaucrat tommy("Tommy", 1);
-
-		std::cout << blue << "Before signing:" << reset << std::endl;
-		std::cout << tommy << std::endl;
-		std::cout << form2 << std::endl;
-
-		tommy.signForm(form2);
-
-		std::cout << green << "After signing:" << reset << std::endl;
-		std::cout << form2 << std::endl;
-	}
-	catch (const std::exception &e) {
-		std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Create Form With High Sign Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		try
+		{
+			Form f("Form2", 0, 10);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
 	}
 
-	// Test signing a form with insufficient grade
-	try {
-		std::cout << cyan << "\n[TEST 2] Signing Form With Insufficient Grade" << reset << std::endl;
-		Form form2("Confidential", 149, 1);
-		Bureaucrat tommy("Tommy", 150);
-
-		std::cout << blue << "Before signing:" << reset << std::endl;
-		std::cout << tommy << std::endl;
-		std::cout << form2 << std::endl;
-
-		tommy.signForm(form2);
-
-		std::cout << green << "After signing:" << reset << std::endl;
-		std::cout << form2 << std::endl;
-	}
-	catch (const std::exception &e) {
-		std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Create Form With Low Sign Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		try
+		{
+			Form f("Form3", 151, 10);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
 	}
 
-	// Test creating a form with an invalid grade
-	try {
-		std::cout << cyan << "\n[TEST 3] Creating Form With Invalid Grade (Too High)" << reset << std::endl;
-		Form form("Impossible Form", 0, 10);
-	}
-	catch (const std::exception &e) {
-		std::cerr << red << "Exception: " << reset << e.what() << std::endl;
-	}
-
-	try {
-		std::cout << cyan << "\n[TEST 4] Creating Form With Invalid Grade (Too Low)" << reset << std::endl;
-		Form form("Impossible Form", 151, 10);
-	}
-	catch (const std::exception &e) {
-		std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Create Form With High Execute Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		try
+		{
+			Form f("Form4", 10, 0);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
 	}
 
-	try {
-		std::cout << cyan << "\n[TEST 5] Trying to sign again" << reset << std::endl;
-		Form form("Signed Form", 100, 10);
-		Bureaucrat tommy("Tommy", 1);
-		Bureaucrat fred("Fred", 1);
-		tommy.signForm(form);
-		fred.signForm(form);
-	}
-	catch (const std::exception &e) {
-		std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Create Form With Low Execute Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		try
+		{
+			Form f("Form5", 10, 151);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
 	}
 
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Signing Form" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		Bureaucrat b("John Doe", 5);
+		Form f("Form6", 10, 10);
+		std::cout << "Before Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+		f.beSigned(b);
+		std::cout << "After Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+	}
+
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Signing Form With Low Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		Bureaucrat b("John Doe", 15);
+		Form f("Form7", 10, 10);
+		try
+		{
+			f.beSigned(b);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
+	}
+
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Testing signForm Function" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		Bureaucrat b("John Doe", 5);
+		Form f("Form9", 10, 10);
+		std::cout << "Before Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+		b.signForm(f);
+		std::cout << "After Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+	}
+
+	{
+		std::cout << cyan << "\n►►►►►►  " << "Testing signForm Function with Low Grade" << "  ◄◄◄◄◄◄" << reset << std::endl;
+		Bureaucrat b("Jane Doe", 15);
+		Form f("Form10", 10, 10);
+		std::cout << "Before Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+		b.signForm(f);
+		std::cout << "After Signing:\t" << (f.getIsSigned() ? "Yes" : "No") << std::endl;
+	}
+
+	{
+		std::cout << cyan << "\n►►►►►►  Testing << Operator Overload  ◄◄◄◄◄◄" << reset << std::endl;
+		Form f("Form8", 5, 10);
+		std::cout << f << std::endl;
+	}
+
+	{
+		std::cout << cyan << "\n►►►►►►  Testing << Operator Overload After Signing  ◄◄◄◄◄◄" << reset << std::endl;
+		Bureaucrat b("John Doe", 1);
+		Form f("Form8", 5, 10);
+		std::cout << f << std::endl;
+		try
+		{
+			f.beSigned(b);
+		} catch (std::exception &e)
+		{
+			std::cerr << red << "Exception: " << reset << e.what() << std::endl;
+		}
+		std::cout << f << std::endl;
+	}
+	std::cout << green << "All tests passed!" << reset << std::endl;
 	return 0;
 }
-
-
-
