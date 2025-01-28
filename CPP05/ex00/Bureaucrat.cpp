@@ -11,6 +11,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade)
 		throw GradeTooLowException();
 	if(grade < 1)
 		throw GradeTooHighException();
+	std::cout << "Bureaucrat Data Constructor Called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &other) : _name(other._name), _grade(other._grade)
@@ -66,8 +67,8 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 	return "Grade too Low";
 }
 
-std::ostream& operator<<(std::ostream &ouput, const Bureaucrat& show)
+std::ostream& operator<<(std::ostream &output, const Bureaucrat& show)
 {
-	ouput << show.getName() << ", bureaucrat grade " << show.getGrade();
-	return ouput;
+	output << show.getName() << ", bureaucrat grade is: " << show.getGrade();
+	return output;
 }

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <stdexcept>
 
-
 #define blue "\033[34m"
 #define red "\033[31m"
 #define green "\033[32m"
@@ -26,10 +25,10 @@ public:
 	Bureaucrat &operator=(const Bureaucrat &other);
 
 	std::string getName() const;
-	int getGrade() const;
+	int 		getGrade() const;
 
-	void incrementGrade();
-	void decrementGrade();
+	void 		incrementGrade();
+	void 		decrementGrade();
 
 	class GradeTooHighException : public std::exception
 	{
@@ -44,6 +43,6 @@ public:
 	};
 };
 
-std::ostream& operator<<(std::ostream &ouput, const Bureaucrat& show);
+std::ostream& operator<<(std::ostream &output, const Bureaucrat& show);
 
 #endif
