@@ -1,7 +1,13 @@
 #include <iostream>
+#include "ScalarConverter.hpp"
 
-int main()
+int main(int argc, char **agrv)
 {
+	if (argc == 2)
+		ScalarConverter::converter(agrv[1]);
 
-    return 0;
+	else
+		std::cout << "Wrong nbr of args" << std::endl;
+
+	return 0;
 }
