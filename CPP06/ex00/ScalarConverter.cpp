@@ -42,8 +42,6 @@ int ScalarConverter::checkType(std::string value)
 
 void ScalarConverter::converter(std::string value)
 {
-
-//	std::cout << std::fixed << std::setprecision(1);
 	switch (checkType(value))
 	{
 		case 1:
@@ -105,7 +103,7 @@ void ScalarConverter::printInt(std::string value)
 {
 
 	long intValue = std::strtol(value.c_str(), NULL, 10);
-	
+
 	if (intValue >= std::numeric_limits<char>::min() && intValue <= std::numeric_limits<char>::max() && isprint(static_cast<char>(intValue)))
 		std::cout << "char: '" << static_cast<char>(intValue) << "'" << std::endl;
 	else
