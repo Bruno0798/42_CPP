@@ -42,6 +42,7 @@ int ScalarConverter::checkType(std::string value)
 
 void ScalarConverter::converter(std::string value)
 {
+	std::cout << std::fixed << std::setprecision(1);
 	switch (checkType(value))
 	{
 		case 1:
@@ -78,7 +79,7 @@ bool ScalarConverter::checkFloat(std::string value)
 
 	char* end;
 	std::strtof(value.c_str(), &end);
-	return *end == '\0';
+	return *end == '\0' || *end == 'f';
 }
 
 bool ScalarConverter::checkDouble(std::string value)

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <typeinfo>
 #include <ctime>
 #include "Base.hpp"
 
