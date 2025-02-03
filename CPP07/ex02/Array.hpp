@@ -21,6 +21,11 @@ public:
 
 	T& operator[](unsigned int index);
 	unsigned int size() const;
+
+	class OutOfBounds : public std::exception
+	{
+		const char *what() const throw();
+	};
 };
 
 template <typename T>
@@ -82,7 +87,7 @@ T& Array<T>::operator[](unsigned int index)
 {
 	if (index >= _size)
 	{
-		throw std::out_of_range("Index out of bounds");
+		throw OutOfBounds();
 	}
 	return _data[index];
 }
@@ -91,6 +96,12 @@ template <typename T>
 unsigned int Array<T>::size() const
 {
 	return _size;
+}
+
+template <typename T>
+const char* Array<T>::OutOfBounds::what() const throw()
+{
+	return "Exception: index out of bounds!";
 }
 
 #endif
