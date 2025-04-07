@@ -33,7 +33,7 @@ int main()
 	int max;
 	std::cout << "Enter the maximum number for the sequence: ";
 	if (!checkInput(max))
-		std::exit(1);
+		return 1;
 	std::vector<int> numbers = createVector(max);
 	printVector(numbers);
 	try
@@ -41,13 +41,13 @@ int main()
 		int toFind;
 		std::cout << "\nEnter a number to search for: ";
 		if (!checkInput(toFind))
-			std::exit(1);
+			return 1;
 		std::vector<int>::iterator it = easyFind(numbers, toFind);
 		std::cout << "Success! Number " << toFind << " is located at index " << std::distance(numbers.begin(), it) << "." << std::endl;
 	}
 	catch (const std::invalid_argument &e)
 	{
-		std::cerr << "Error: " << e.what() << " Please try again with a valid number.\n";
+		std::cerr << "Error: " << e.what();
 	}
 	return 0;
 }
