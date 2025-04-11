@@ -1,4 +1,4 @@
-NAME = easyfind
+NAME = mutant
 
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)

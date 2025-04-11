@@ -2,11 +2,11 @@
 #include "Span.hpp"
 #include <vector>
 
-void fillContainer(Span& container)
+void fillContainer(Span& container, size_t begin, size_t end)
 {
 	std::vector<unsigned int> numbers;
-	for (size_t i = 0; i < container.getSize(); ++i)
-		numbers.push_back(rand() % 1000 + 1);
+	for (size_t i = begin; i < container.getSize(); ++i)
+		numbers.push_back(rand() % end + 1);
 
 	container.addNumbers(numbers.begin(), numbers.end());
 
@@ -46,7 +46,7 @@ void testOverflowContainer()
 	try
 	{
 		Span container(5);
-		fillContainer(container);
+		fillContainer(container, 1, 1000);
 		container.addNumber(10);
 		std::cout << "Shortest Span: " << container.shortestSpan() << std::endl;
 	}
@@ -58,7 +58,7 @@ void testOverflowContainer()
 	try
 	{
 		Span container(5);
-		fillContainer(container);
+		fillContainer(container, 1 , 1000);
 		container.addNumber(10);
 		std::cout << "Longest Span: " <<  container.longestSpan() << std::endl;
 	}
@@ -99,8 +99,8 @@ void testFullContainer()
 	try
 	{
 		std::cout << "\nTEST: Full Container" << std::endl << std::endl;
-		Span container(20000);
-		fillContainer(container);
+		Span container(100);
+		fillContainer(container, 1 , 1000);
 
 		std::cout << "Shortest Span: " << container.shortestSpan() << std::endl;
 		std::cout << "Longest Span: " <<  container.longestSpan() << std::endl;
@@ -157,5 +157,8 @@ int main()
 	testFullContainer();
 	testDuplicateNumbers();
 	testMixedNumbers();
+	Span container(10);
+	fillContainer(container, 1 , 10);
+	container.printNumbers();
 	return 0;
 }

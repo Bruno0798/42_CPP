@@ -29,11 +29,11 @@ class Span
 			_cont.insert(_cont.end(), begin, end);
 		}
 
-		void setSize(unsigned int size);
+	unsigned int getSize() const;
 
-		unsigned int getSize() const;
+	void setSize(unsigned int size);
 
-		const std::vector<unsigned int> &getCont() const;
+	const std::vector<unsigned int> &getCont() const;
 
 		void setCont(const std::vector<unsigned int> &cont);
 

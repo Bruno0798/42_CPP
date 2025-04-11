@@ -52,7 +52,6 @@ long Span::shortestSpan()
 		if(span < minSpan)
 			minSpan = span;
 	}
-
 	return minSpan;
 }
 
@@ -74,16 +73,6 @@ long Span::longestSpan()
 	return maxSpan;
 }
 
-void Span::setSize(unsigned int size)
-{
-	_size = size;
-}
-
-unsigned int Span::getSize() const
-{
-	return _size;
-}
-
 void Span::printNumbers()
 {
 	for (size_t i = 0; i < _cont.size(); ++i)
@@ -100,6 +89,17 @@ void Span::setCont(const std::vector<unsigned int> &cont)
 {
 	_cont = cont;
 }
+
+unsigned int Span::getSize() const
+{
+	return _size;
+}
+
+void Span::setSize(unsigned int size)
+{
+	_size = size;
+}
+
 
 const char *Span::NoSpaceException::what() const throw()
 {

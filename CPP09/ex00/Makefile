@@ -1,6 +1,6 @@
-NAME = span
+NAME = btc
 
-SRC = main.cpp Span.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
@@ -26,5 +26,5 @@ leaks: $(NAME)
 ifeq ($(OS), Darwin)
 	leaks -atExit -- ./$(NAME)
 else
-	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) input.txt
 endif
