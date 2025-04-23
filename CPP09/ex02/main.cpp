@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "PmergeMe.hpp"
 
 
@@ -26,10 +27,11 @@ int main(int argc, char **argv)
 		return std::cout << "Invalid Arguments\n", 1;
 	double time = clock();
 	PmergeMe merge(argc,argv);
-	merge.mergeSort(merge.getVec());
 	printVector(merge.getVec());
+	merge.merge(merge.getVec(), 2);
+//	printVector(merge.getVec());
 	time = (clock() - time) / CLOCKS_PER_SEC;
-	std::cout << time;
+	std::cout << "Time: " << time << std::endl;
 
 
     return 0;

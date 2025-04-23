@@ -2,6 +2,9 @@
 #define PMERGEME_H
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cstdlib>
 
 class PmergeMe
 {
@@ -14,8 +17,7 @@ public:
 	PmergeMe(const PmergeMe &other);
 	PmergeMe &operator=(const PmergeMe &other);
 
-	std::vector<int> mergeSort(std::vector<int> a);
-	std::vector<int> merge(std::vector<int> a, std::vector<int> b);
+	std::vector<int> merge(std::vector<int> vec, int level);
 
 	std::vector<int> getVec() const;
 };

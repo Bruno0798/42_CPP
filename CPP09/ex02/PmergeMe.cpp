@@ -38,41 +38,43 @@ std::vector<int> PmergeMe::getVec() const
 }
 
 
-std::vector<int> PmergeMe::mergeSort(std::vector<int> a)
+std::vector<int> PmergeMe::merge(std::vector<int> vec, int level)
 {
-	if (a.size() == 1)
-		return a;
+	int buffer = 0;
+	std::vector<int> firstElements;
+	std::vector<std::vector<int> > vecPairs;
 
-	size_t mid = a.size() / 2;
-	std::vector<int> left(a.begin(), a.begin() + mid);
-	std::vector<int> right(a.begin() + mid, a.end());
+	if (vec.size() < 2)
+		return vec;
 
-	left = mergeSort(left);
-	right = mergeSort(right);
-
-	vec = merge(left, right);
-	return merge(left, right);
-}
-
-
-std::vector<int> PmergeMe::merge(std::vector<int> a, std::vector<int> b)
-{
-	std::vector<int> c;
-	while (!a.empty() && !b.empty())
+	if(vec.size() % 2)
 	{
-		if (a.front() <= b.front())
-		{
-			c.push_back(a.front());
-			a.erase(a.begin());
-		}
-		else
-		{
-			c.push_back(b.front());
-			b.erase(b.begin());
-		}
+		buffer = vec.back();
+		vec.pop_back();
 	}
-	c.insert(c.end(), a.begin(), a.end());
-	c.insert(c.end(), b.begin(), b.end());
+	for (size_t i = 0; i < vec.size(); i += level * 2)
+	{
+		for (int j = 0; j < level * 2 && i + j < vec.size(); ++j)
+			firstElements.push_back(vec[i + j]);
+		sort(firstElements.begin(), firstElements.end());
+		vecPairs.push_back(firstElements);
+		firstElements.clear();
+	}
 
-	return c;
+	if(buffer)
+		vec.push_back(buffer);
+
+	std::cout << "First Elements: ";
+	for (size_t i = 0; i < firstElements.size(); ++i)
+		std::cout << firstElements[i] << " ";
+	std::cout << std::endl;
+	for (size_t i = 0; i < vecPairs.size(); ++i)
+	{
+		std::cout << "Pair " << i + 1 << ": ";
+		for (size_t j = 0; j < vecPairs[i].size(); ++j)
+			std::cout << vecPairs[i][j] << " ";
+		std::cout << std::endl;
+	}
+
+	return vec;
 }

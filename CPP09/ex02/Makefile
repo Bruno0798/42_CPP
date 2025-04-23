@@ -29,5 +29,5 @@ leaks: $(NAME)
 ifeq ($(OS), Darwin)
 	leaks -atExit -- ./$(NAME) `jot -r 3000 1 100000 | tr '\n' ' '`
 else
-	valgrind --leak-check=full --track-origins=yes ./$(NAME) input.txt
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) 8 2 11 5 3 5 6 8 41 50 99
 endif
