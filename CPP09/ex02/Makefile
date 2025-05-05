@@ -3,7 +3,7 @@ NAME = PmergeMe
 SRC = main.cpp PmergeMe.cpp
 OBJ = $(SRC:.cpp=.o)
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 all: $(NAME)
 
@@ -22,12 +22,13 @@ fclean: clean
 re: fclean all
 
 run: re
-	./$(NAME) `jot -r 3000 1 100000 | tr '\n' ' '`
+	clear
+	./$(NAME) 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
 
 # Leaks/Valgrind test target
 leaks: $(NAME)
 ifeq ($(OS), Darwin)
-	leaks -atExit -- ./$(NAME) `jot -r 3000 1 100000 | tr '\n' ' '`
+	leaks -atExit -- ./$(NAME) 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
 else
-	valgrind --leak-check=full --track-origins=yes ./$(NAME) 8 2 11 5 3 5 6 8 41 50 99
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
 endif

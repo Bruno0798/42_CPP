@@ -19,6 +19,10 @@ public:
 
 	std::vector<int> merge(std::vector<int> vec, int level);
 
+	std::vector<int> swapPairs(std::vector<int> number, int pairSize);
+
+	std::vector<int> comparePairs(std::vector<int> numbers, int pairSize);
+
 	std::vector<int> getVec() const;
 };
 

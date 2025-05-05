@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	double time = clock();
 	PmergeMe merge(argc,argv);
 	printVector(merge.getVec());
-	merge.merge(merge.getVec(), 2);
+	merge.merge(merge.getVec(), 1);
 //	printVector(merge.getVec());
 	time = (clock() - time) / CLOCKS_PER_SEC;
 	std::cout << "Time: " << time << std::endl;
