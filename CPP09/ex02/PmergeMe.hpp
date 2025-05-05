@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 #include <cstdlib>
+#include <cmath>
 
 class PmergeMe
 {
@@ -22,6 +23,8 @@ public:
 	std::vector<int> swapPairs(std::vector<int> number, int pairSize);
 
 	std::vector<int> comparePairs(std::vector<int> numbers, int pairSize);
+
+	int getJacobsthal(int k);
 
 	std::vector<int> getVec() const;
 };

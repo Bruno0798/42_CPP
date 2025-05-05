@@ -44,11 +44,10 @@ std::vector<int> PmergeMe::merge(std::vector<int> vec, int level)
 	std::vector<int> firstElements;
 	std::vector<std::vector<int> > vecPairs;
 
-	if (vec.size() < 2)
+//	if (vec.size() < 2)
+//		return vec;
+	if (vec.size() < static_cast<size_t>(((level * 2) * 2))) //Se nao tiver pelo menos 2 pares da return
 		return vec;
-	if (vec.size() < static_cast<size_t>(((level * 2) * 2)))
-		return vec;
-
 
 	if(vec.size() % 2)
 	{
@@ -76,20 +75,22 @@ std::vector<int> PmergeMe::merge(std::vector<int> vec, int level)
 	}
 	if (level != 1)
 		vec = swapPairs(vec, level);
-
 	if(buffer)
 		vec.push_back(buffer);
 
+	std::cout << "Pair Size" << level * 2 << std::endl << std::endl;
+	for (size_t i = 0; i < vec.size(); ++i)
+		std::cout << vec[i] << " ";
+	std::cout << std::endl << std::endl;
+
 	vec = merge(vec,level * 2);
 
-	std::cout << "Level: " << level << std::endl;
-	std::cout << "Vector Size: " << vec.size() << std::endl;
-	for (size_t i = 0; i < vec.size(); ++i)
-	{
-		std::cout << vec[i] << " ";
-	}
-	std::cout << std::endl;
-	if(level != 4)
+	std::cout << "Level: " << level << std::endl << std::endl;
+//	std::cout << "Vector Size: " << vec.size() << std::endl;
+//	for (size_t i = 0; i < vec.size(); ++i)
+//		std::cout << vec[i] << " ";
+//	std::cout << std::endl;
+	if(level != 8)
 		vec = comparePairs(vec, level);
 
 	return vec;
@@ -101,7 +102,7 @@ std::vector<int> PmergeMe::comparePairs(std::vector<int> numbers, int pairSize)
 	std::vector<int> main;
 	std::vector<int> pend;
 
-	std::cout << "PairSize: " << pairSize << std::endl << std::endl;
+//	std::cout << "PairSize: " << pairSize << std::endl << std::endl;
 	for (size_t i = 0; i + pairSize * 2 - 1 < numbers.size(); i += pairSize)
 	{
 		if(flag || i == 0)
@@ -122,26 +123,41 @@ std::vector<int> PmergeMe::comparePairs(std::vector<int> numbers, int pairSize)
 		}
 		flag = !flag;
 	}
-	
+
+	std::cout << getJacobsthal(1) << std::endl;
+	std::cout << getJacobsthal(2) << std::endl;
+	std::cout << getJacobsthal(3) << std::endl;
+	std::cout << getJacobsthal(4) << std::endl;
+	std::cout << getJacobsthal(5) << std::endl;
+	std::cout << getJacobsthal(6) << std::endl;
+	std::cout << getJacobsthal(7) << std::endl;
+	// se no pend tiver pelo menos o mesmo numero do resultado de current_jacobsthal - previous_jacobsthal tiver, faz esse mesmo numero de movimentos
+	// depois avanca uma posicao do jacobsthal e faz o mesmo ate nao ter elementos necessarios para esse jacobsthal
+	// a cada movimento usar binary search para fazer a insercao dos pares
 	return numbers;
 }
 
 std::vector<int> PmergeMe::swapPairs(std::vector<int> number, int pairSize)
 {
-	std::cout << "\nPair Size: " << pairSize << std::endl;
-	std::cout << "Vector Size: " << number.size() << std::endl;
+//	std::cout << "\nPair Size: " << pairSize << std::endl;
+//	std::cout << "Vector Size: " << number.size() << std::endl;
 
 	for (size_t i = 0; i + pairSize * 2 - 1 < number.size(); i += pairSize * 2)
 	{
-		std::cout << "Is " << number[i + pairSize - 1] << " bigger than " << number[i + pairSize * 2 - 1] << std::endl;
+//		std::cout << "Is " << number[i + pairSize - 1] << " bigger than " << number[i + pairSize * 2 - 1] << std::endl;
 		if (number[i + pairSize - 1] > number[i + pairSize * 2 - 1])
 		{
 			for (int j = 0; j < pairSize; ++j)
 			{
-				std::cout << "Swaping : " << number[i + j] << " for " << number[i + pairSize + j] << std::endl;
+//				std::cout << "Swaping : " << number[i + j] << " for " << number[i + pairSize + j] << std::endl;
 				std::swap(number[i + j], number[i + pairSize + j]);
 			}
 		}
 	}
 	return number;
+}
+
+int PmergeMe::getJacobsthal(int k)
+{
+	return (static_cast<int>(pow(2, k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 }
