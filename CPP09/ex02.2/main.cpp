@@ -19,5 +19,6 @@ int main(int argc, char **argv)
 	PmergeMe merge(argc, argv);
 //	merge.printVector();
 	merge.merge();
+	merge.printVector();
 	return 0;
 }

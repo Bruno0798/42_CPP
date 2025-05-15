@@ -2,10 +2,12 @@
 #define PMERGEME_H
 
 #include <iostream>
+#include <string>
 #include <vector>
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include <sstream>
 
 class PmergeMe
 {
@@ -32,6 +34,8 @@ public:
 	void split(std::vector<std::pair<std::vector<int>, std::string> >& main, std::vector<std::pair<std::vector<int>, std::string> >& pend, std::vector<std::pair<std::vector<int>, std::string> >& assign);
 	std::pair<std::vector<int>, std::string> getThePair(std::vector<std::pair<std::vector<int>, std::string> >& pend, const std::string& target);
 	int getJacobsthal(int k);
+	std::string to_string(int value);
+	void compare(std::vector<std::pair<std::vector<int>, std::string> >& main, std::pair<std::vector<int>, std::string>& target_pair, size_t i);
 };
 
 #endif

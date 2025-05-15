@@ -40,20 +40,33 @@ int PmergeMe::getJacobsthal(int k)
 
 void PmergeMe::printVector() const
 {
-	std::cout << std::endl <<"Current Vector with pairs" << std::endl;
-	for(size_t i = 0; i + _pairSize <= _vec.size(); i += _pairSize)
+	std::cout << std::endl << "Current Vector with pairs" << std::endl;
+	for (size_t i = 0; i < _vec.size(); i += _pairSize)
 	{
-		for(size_t j = 0; j < _pairSize; ++j)
+		for (size_t j = 0; j < _pairSize && (i + j) < _vec.size(); ++j)
 			std::cout << _vec[i + j] << " ";
 		std::cout << std::endl;
 	}
 	std::cout << std::endl << std::endl;
 }
 
+
 void PmergeMe::swapPairs(size_t start)
 {
 	if (start + (_pairSize + 1) * 2 >= _vec.size())
-		return;
+	{
+		if(_pairSize != 1)
+			return;
+		else
+		{
+			std::vector<int	> aux;
+			aux.push_back(_vec[start]);
+			_vec[start] = _vec[start + 1];
+			_vec[start + 1] = aux[0];
+			aux.pop_back();
+			return;
+		}
+	}
 	std::vector<int	> aux;
 	for (size_t i = start; i != start + _pairSize; ++i)
 	{
@@ -65,17 +78,14 @@ void PmergeMe::swapPairs(size_t start)
 	std::cout << std::endl;
 }
 
-
 void PmergeMe::organizePair()
 {
-	std::cout << "Pair Size: " << _pairSize << std::endl;
-	printVector();
-	for (size_t i = _pairSize - 1; i < _vec.size() || i + i +_pairSize * 2 < _vec.size(); i += (_pairSize * 2))
+
+	for (size_t i = _pairSize - 1; i < _vec.size() || i + i + _pairSize * 2 < _vec.size(); i += (_pairSize * 2))
 	{
 		if (_vec[i] > _vec[i + _pairSize])
 			swapPairs((i + 1) - _pairSize);
 	}
-	std::cout << std::endl;
 }
 
 std::vector<std::pair<std::vector<int>, std::string> > PmergeMe::assignTags()
@@ -92,8 +102,8 @@ std::vector<std::pair<std::vector<int>, std::string> > PmergeMe::assignTags()
 			pair.push_back(_vec[i]);
 
 		std::string label = (result.size() % 2 == 0)
-			? "b" + std::to_string(bCount++)
-			: "a" + std::to_string(aCount++);
+			? "b" + to_string(bCount++)
+			: "a" + to_string(aCount++);
 
 		result.push_back(std::make_pair(pair, label));
 	}
@@ -144,16 +154,36 @@ std::pair<std::vector<int>, std::string> PmergeMe::getThePair(
 	if (index_to_remove < pend.size())
 		pend.erase(pend.begin() + index_to_remove);
 
-	for (size_t j = 0; j < target_pair.first.size(); ++j)
-		std::cout << target_pair.first[j] << " ";
-	std::cout << std::endl;
+//	for (size_t j = 0; j < target_pair.first.size(); ++j)
+//		std::cout << target_pair.first[j] << " ";
+//	std::cout << std::endl;
 
 	return target_pair;
 }
 
+std::string PmergeMe::to_string(int value) {
+	std::ostringstream oss;
+	oss << value;
+	return oss.str();
+}
 
-
-
+void PmergeMe::compare(std::vector<std::pair<std::vector<int>, std::string> > &main,std::pair<std::vector<int>, std::string>& target_pair, size_t i)
+{
+	while (target_pair.first.back() < main[i].first.back())
+	{
+		i--;
+	}
+	std::cout << "puta 2" << std::endl;
+	main.insert(main.begin() + i + 1,target_pair);
+	std::cout << "MAIN AFTER INSERTION:\n";
+	for (size_t i = 0; i < main.size(); ++i)
+	{
+		std::cout << main[i].second << ": ";
+		for (size_t j = 0; j < main[i].first.size(); ++j)
+			std::cout << main[i].first[j] << " ";
+		std::cout << "\n";
+	}
+}
 
 void PmergeMe::insertion()
 {
@@ -187,35 +217,48 @@ void PmergeMe::insertion()
 	size_t previous_jacobsthal = getJacobsthal(jacobsthal - 1);
 	std::pair<std::vector<int>, std::string> target_pair;
 
-	if (current_jacobsthal - previous_jacobsthal <= pend.size())
+	while (current_jacobsthal - previous_jacobsthal <= pend.size())
 	{
 		for (size_t j = current_jacobsthal - previous_jacobsthal; j != 0; --j)
 		{
-			std::string target = "b" + std::to_string(current_jacobsthal);
+			std::string target = "b" + to_string(current_jacobsthal);
 			target_pair = getThePair(pend, target);
 			for (size_t i = 0; i < main.size(); ++i)
 			{
-				std::cout << "Main pair " << main[i].second.back() << std::endl;
-				std::cout << "target pair " << target_pair.second.back() - '1' << std::endl;
-				if (main[i].second.back() == target_pair.second.back() - '1')
+//				std::cout << "Main pair " << main[i].second[main[i].second.size() - 1] << std::endl;
+//				std::cout << "target pair " << target_pair.second[target_pair.second.size() - 1] - '1' << std::endl;
+				if (main[i].second[main[i].second.size() - 1] == target_pair.second[target_pair.second.size() - 1] - 1)
 				{
-					if (!main[i + 1].second.empty())
+					if(!main[i + 2].first.empty())
 					{
-						if (main[i + 1].first.back() < target_pair.first.back())
-							main.insert(main.begin() + i, target_pair);
-						else
-							main.insert(main.begin() + i + 1, target_pair);
+						std::cout << "Blah 1" << std::endl;
+						compare(main, target_pair, i + 1);
 					}
 					else
 					{
-						if (main[i].first.back() < target_pair.first.back())
-							main.insert(main.begin() + i, target_pair);
-						else
-							main.insert(main.begin() + i + 1, target_pair);
+						std::cout << "Blah 2" << std::endl;
+						compare(main, target_pair, i);
 					}
+					break;
 				}
 			}
 		}
+		jacobsthal++;
+		previous_jacobsthal = current_jacobsthal;
+		current_jacobsthal = getJacobsthal(jacobsthal);
+		std::cout << "Jacobsthal: " << current_jacobsthal << std::endl;
+	}
+	while(!pend.empty())
+	{
+		std::pair<std::vector<int>, std::string> target_pair = pend.back();
+		pend.pop_back();
+		compare(main, target_pair, main.size() - 1);
+	}
+	_vec.clear();
+	for (size_t i = 0; i < main.size(); ++i)
+	{
+		for (size_t j = 0; j < main[i].first.size(); ++j)
+			_vec.push_back(main[i].first[j]);
 	}
 }
 
@@ -254,12 +297,14 @@ void PmergeMe::merge()
 	if(_vec.size() <= (_pairSize * 2))
 		return ;
 
-	std::vector<int> buffer = bufferOddPair();
+	printVector();
 	organizePair();
+	std::vector<int> buffer = bufferOddPair();
 	_pairSize *= 2;
 	merge();
 	_pairSize /= 2;
 	insertion();
 	if (!buffer.empty())
 		retreiveBuffer(buffer);
+	printVector();
 }
