@@ -2,6 +2,10 @@
 #define PMERGEME_H
 
 #include <iostream>
+#include <vector>
+#include <cmath>
+#include <cstdlib>
+#include <algorithm>
 
 class PmergeMe
 {
@@ -17,8 +21,17 @@ public:
 
 	//UTILS
 	void printVector() const;
+	size_t countPairs() const;
+	std::vector<int> bufferOddPair();
+	void retreiveBuffer(std::vector<int >);
 	void merge();
 	void organizePair();
+	void swapPairs(size_t i);
+	std::vector<std::pair<std::vector<int>, std::string> > assignTags();
+	void insertion();
+	void split(std::vector<std::pair<std::vector<int>, std::string> >& main, std::vector<std::pair<std::vector<int>, std::string> >& pend, std::vector<std::pair<std::vector<int>, std::string> >& assign);
+	std::pair<std::vector<int>, std::string> getThePair(std::vector<std::pair<std::vector<int>, std::string> >& pend, const std::string& target);
+	int getJacobsthal(int k);
 };
 
 #endif
