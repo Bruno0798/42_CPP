@@ -35,7 +35,7 @@ public:
 	std::pair<std::vector<int>, std::string> getThePair(std::vector<std::pair<std::vector<int>, std::string> >& pend, const std::string& target);
 	int getJacobsthal(int k);
 	std::string to_string(int value);
-	void compare(std::vector<std::pair<std::vector<int>, std::string> >& main, std::pair<std::vector<int>, std::string>& target_pair, size_t i);
+	void compare(std::vector<std::pair<std::vector<int>, std::string> >& main, std::pair<std::vector<int>, std::string>& target_pair, int i);
 };
 
 #endif
