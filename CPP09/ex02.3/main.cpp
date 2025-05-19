@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include "PmergeMe.hpp"
 
 bool checkArguments(int argc, char **argv)
@@ -17,7 +16,7 @@ int main(int argc, char **argv)
     if(!checkArguments(argc,argv))
         return std::cout << "Invalid Arguments\n", 1;
     PmergeMe merge(argv, argc);
-    merge.printVector();
+//    merge.printVector();
     merge.merge();
 
     return 0;
