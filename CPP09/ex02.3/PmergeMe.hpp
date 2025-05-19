@@ -2,12 +2,14 @@
 #define PMERGEME_H
 
 #include <iostream>
+#include <list>
 #include <string>
 #include <vector>
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
 #include <sstream>
+#include <climits>
 
 // Text colors
 const std::string red = "\033[31m";
@@ -30,6 +32,7 @@ const std::string reset = "\033[0m";
 class PmergeMe {
 private:
     std::vector<int > _vec;
+	std::list<int > _list;
     size_t _pairSize;
 public:
     PmergeMe();

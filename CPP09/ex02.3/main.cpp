@@ -11,13 +11,16 @@ bool checkArguments(int argc, char **argv)
 }
 int main(int argc, char **argv)
 {
-    if(argc < 3)
+	if(argc < 3)
         return std::cout << "Not enough numbers" << std::endl, 1;
-    if(!checkArguments(argc,argv))
-        return std::cout << "Invalid Arguments\n", 1;
+	if(!checkArguments(argc,argv))
+		return std::cout << "Invalid Arguments\n", 1;
+	double time = clock();
     PmergeMe merge(argv, argc);
 //    merge.printVector();
     merge.merge();
-
+	time = (clock() - time) / CLOCKS_PER_SEC;
+	std::cout << "Time: " << time << " us" << std::endl;
+	merge.printVector();
     return 0;
 }
