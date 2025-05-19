@@ -83,14 +83,14 @@ void PmergeMe::organizePairs()
     {
         if (!(i >= _vec.size() || i + _pairSize >= _vec.size()))
         {
-            std::cout << "Comparing " << _vec[i] << " bigger than " << _vec[i + _pairSize] << std::endl;
+            // std::cout << "Comparing " << _vec[i] << " bigger than " << _vec[i + _pairSize] << std::endl;
             if (_vec[i] > _vec[i + _pairSize])
             {
-                std::cout << "Yes, switching numbers" << std::endl << std::endl;
+                // std::cout << "Yes, switching numbers" << std::endl << std::endl;
                 swapPairs((i + 1) - _pairSize);
             }
-            else
-                std::cout << "No, keeping the same" << std::endl << std::endl;
+            // else
+                // std::cout << "No, keeping the same" << std::endl << std::endl;
         }
     }
 }
@@ -139,7 +139,43 @@ void PmergeMe::split(std::vector<std::pair<std::vector<int>,
     }
 }
 
-void PmergeMe::insertion()
+std::pair<std::vector<int>, std::string> PmergeMe::getThePair(
+    std::vector<std::pair<std::vector<int>, std::string> >& pend,
+    const std::string& target)
+{
+    std::pair<std::vector<int>, std::string> target_pair;
+    size_t index_to_remove = pend.size();
+    std::string closest_lower = "";
+
+    for (size_t i = 0; i < pend.size(); ++i)
+    {
+        const std::string& current = pend[i].second;
+
+        if (current == target)
+        {
+            target_pair = pend[i];
+            index_to_remove = i;
+            break;
+        }
+        if (current < target && (closest_lower == "" || current > closest_lower))
+        {
+            closest_lower = current;
+            target_pair = pend[i];
+            index_to_remove = i;
+        }
+    }
+
+    if (index_to_remove < pend.size())
+        pend.erase(pend.begin() + index_to_remove);
+
+    //	for (size_t j = 0; j < target_pair.first.size(); ++j)
+    //		std::cout << target_pair.first[j] << " ";
+    //	std::cout << std::endl;
+
+    return target_pair;
+}
+
+void PmergeMe::splitAndInsert()
 {
     std::vector<std::pair<std::vector<int>, std::string> > assign = assignTags();
     std::vector<std::pair<std::vector<int>, std::string> > main;
@@ -169,8 +205,66 @@ void PmergeMe::insertion()
     }
     std::cout << std::endl;
 
+    int jacobsthal = 2;
+    size_t curr_jacob = getJacobsthal(jacobsthal);
+    size_t prev_jacob = getJacobsthal(jacobsthal - 1);
+    std::pair<std::vector<int>, std::string> target_pair;
+
+    while (curr_jacob - prev_jacob <= pend.size())
+    {
+        for (size_t j = curr_jacob - prev_jacob; j != 0; --j)
+        {
+            std::cout << "Number of movements left " << j << std::endl;
+            std::string target = "b" + to_string(curr_jacob);
+            target_pair = getThePair(pend, target);
+            std::cout << "Current target is " << target_pair.second << std::endl << std::endl;
+            for (size_t i = 0; i < main.size(); ++i)
+            {
+                std::cout << "Currently searching " << main[i].second << std::endl << std::endl;
+                std::cout << "Target comparing is: " << target_pair.second[target_pair.second.size() - 1] - 1 << std::endl << std::endl;
+                if (main[i].second[main[i].second.size() - 1] == target_pair.second[target_pair.second.size() - 1] - 1)
+                {
+                    if (main[i + 1].second.empty())
+                    {
+                        std::cout << "No a" << target_pair.second[target_pair.second.size()] << " found" << std::endl;
+                        compare(main, target_pair, i);
+                    }
+                    else
+                    {
+                        std::cout << "Found a" << target_pair.second[target_pair.second.size() - 1] << std::endl;
+                        compare(main,target_pair, i + 1);
+                    }
+                    break;
+                }
+            }
+        }
+        jacobsthal++;
+        prev_jacob = curr_jacob;
+        curr_jacob = getJacobsthal(jacobsthal);
+        std::cout << "Jacobsthal: " << curr_jacob << std::endl;
+    }
+
 }
 
+void PmergeMe::compare(std::vector<std::pair<std::vector<int>, std::string> > &main,std::pair<std::vector<int>, std::string>& target_pair, int i)
+{
+    std::cout << "Compare function received i in position :" << main[i].second << std::endl;
+    for (int j = i; j >= 0 && target_pair.first.back() < main[i].first.back(); --j)
+    {
+        std::cout << "Looking for numbers lower than target, currently :" << main[i].second << std::endl;
+        i--;
+    }
+    std::cout << "After looking for closes number found :" << main[i + 1].second << std::endl;
+    main.insert(main.begin() + i + 1,target_pair);
+    std::cout << "\nMAIN AFTER INSERTION:\n";
+    for (size_t i = 0; i < main.size(); ++i)
+    {
+        std::cout << main[i].second << ": ";
+        for (size_t j = 0; j < main[i].first.size(); ++j)
+            std::cout << main[i].first[j] << " ";
+        std::cout << "\n";
+    }
+}
 
 std::vector<int> PmergeMe::bufferOddPair()
 {
@@ -200,18 +294,18 @@ void PmergeMe::merge()
     _pairSize *= 2;
     std::vector<int > buffer = bufferOddPair();
     printVector();
-    if(_vec.size() <= (_pairSize * 2))
+    if(_vec.size() <= _pairSize * 2)
     {
         if (!buffer.empty())
             retreiveBuffer(buffer);
         return ;
     }
     merge();
-    std::cout << "TESTING......" << std::endl;
-    printVector();
-    std::cout << "More testeting ....." << std::endl;
-    insertion();
     _pairSize /=2;
+    // std::cout << "TESTING......" << std::endl;
+    // printVector();
+    // std::cout << "More testeting ....." << std::endl;
+    splitAndInsert();
     // if (!buffer.empty())
     //     retreiveBuffer(buffer);
 
