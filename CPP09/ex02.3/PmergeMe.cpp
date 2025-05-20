@@ -164,6 +164,27 @@ void PmergeMe::splitAndInsert()
     std::vector<std::pair<std::vector<int>, std::string> > pend;
 
     split(main, pend, assign);
+
+    std::cout << "MAIN:\n";
+    for (size_t i = 0; i < main.size(); ++i)
+    {
+        std::cout << main[i].second << ": ";
+        for (size_t j = 0; j < main[i].first.size(); ++j)
+            std::cout << main[i].first[j] << " ";
+        std::cout << "\n";
+    }
+
+    std::cout << "\nPEND:\n";
+    for (size_t i = 0; i < pend.size(); ++i)
+    {
+        std::cout << pend[i].second << ": ";
+        for (size_t j = 0; j < pend[i].first.size(); ++j)
+            std::cout << pend[i].first[j] << " ";
+        std::cout << "\n";
+    }
+    std::cout << std::endl;
+
+    std::cout << std::endl;
     int jacobsthal = 2;
     size_t curr_jacob = getJacobsthal(jacobsthal);
     size_t prev_jacob = getJacobsthal(jacobsthal - 1);
@@ -224,14 +245,15 @@ void PmergeMe::splitAndInsert()
         prev_jacob = curr_jacob;
         curr_jacob = getJacobsthal(jacobsthal);
     }
-	while(!pend.empty()) {
+	while(!pend.empty())
+    {
 	    size_t min_idx = 0;
 	    int min_value = INT_MAX;
-	    
+
 	    for (size_t i = 0; i < pend.size(); i++)
-		{
+	    {
 	        if (!pend[i].first.empty() && pend[i].first.back() < min_value)
-			{
+		    {
 	            min_value = pend[i].first.back();
 	            min_idx = i;
 	        }
@@ -239,26 +261,26 @@ void PmergeMe::splitAndInsert()
 	    std::pair<std::vector<int>, std::string> target_pair = pend[min_idx];
 	    pend.erase(pend.begin() + min_idx);
 	    compare(main, target_pair, main.size() - 1);
-	}
+    }
 	_vec.clear();
 	for (size_t i = 0; i < main.size(); ++i) {
 		for (size_t j = 0; j < main[i].first.size(); ++j)
 			_vec.push_back(main[i].first[j]);
 	}
 
-	// Final verification pass - perform an insertion sort to ensure everything is ordered
-	// This is a safety check that ensures we end with a completely sorted sequence
-	for (size_t i = 1; i < _vec.size(); ++i) {
-		int key = _vec[i];
-		int j = i - 1;
-
-		// Move elements greater than key one position ahead
-		while (j >= 0 && _vec[j] > key) {
-			_vec[j + 1] = _vec[j];
-			j--;
-		}
-		_vec[j + 1] = key;
-	}
+	// // Final verification pass - perform an insertion sort to ensure everything is ordered
+	// // This is a safety check that ensures we end with a completely sorted sequence
+	// for (size_t i = 1; i < _vec.size(); ++i) {
+	// 	int key = _vec[i];
+	// 	int j = i - 1;
+	//
+	// 	// Move elements greater than key one position ahead
+	// 	while (j >= 0 && _vec[j] > key) {
+	// 		_vec[j + 1] = _vec[j];
+	// 		j--;
+	// 	}
+	// 	_vec[j + 1] = key;
+	// }
 }
 
 void PmergeMe::compare(std::vector<std::pair<std::vector<int>, std::string> > &main, std::pair<std::vector<int>, std::string>& target_pair, int i)
@@ -266,7 +288,8 @@ void PmergeMe::compare(std::vector<std::pair<std::vector<int>, std::string> > &m
 //    std::cout << "Compare function received i in position :" << main[i].second << std::endl;
     
     // If main vector is empty, just insert at the beginning
-    if (main.empty()) {
+    if (main.empty())
+    {
         main.push_back(target_pair);
         return;
     }
@@ -349,56 +372,43 @@ void PmergeMe::retreiveBuffer(const std::vector<int> buffer)
 
 void PmergeMe::merge()
 {
-    // Add maximum recursion depth check to prevent stack overflow
     static size_t recursion_level = 1;
     static const size_t MAX_RECURSION_DEPTH = 20;
-    
-    // Check for termination conditions
-    if (recursion_level > MAX_RECURSION_DEPTH || _vec.empty() || _vec.size() == 1) {
-        return;
-    }
-    
-//    std::cout << "Starting Recursion Level: " << recursion_level++ << std::endl;
-//    std::cout << "Current Pair Size: " << _pairSize << std::endl;
-    
-    // Organize pairs
-    organizePairs();
-//    printVector();
-    
-    // Save old pair size for later restoration
-    size_t old_pair_size = _pairSize;
-    _pairSize *= 2;
-    
-    // Handle buffer (odd elements)
-    std::vector<int> buffer;
-    if (_vec.size() % _pairSize != 0)
-        buffer = bufferOddPair();
-    
-    // Base case: if vector is small enough, restore buffer and return
-    if (_vec.empty() || _vec.size() <= _pairSize * 2)
-    {
-        // Restore buffer elements
-        if (!buffer.empty())
-            retreiveBuffer(buffer);
-        // Restore pair size
-        _pairSize = old_pair_size;
-        return;
-    }
-    
-    // Recursive call with increased pair size
-    merge();
-    _pairSize = old_pair_size;
 
-    // Do the split and insert operation
-    splitAndInsert();
-    
-    // Restore buffer elements
-    if (!buffer.empty()) {
-        retreiveBuffer(buffer);
+    std::cout << "Starting Recursion Level: " << recursion_level++ << std::endl;
+    std::cout << "Current Pair Size: " << _pairSize << std::endl;
+
+    // Modified base case to only return for empty or single-element vectors or maximum recursion depth
+    if (recursion_level > MAX_RECURSION_DEPTH || _vec.empty() || _vec.size() == 1)
+        return;
+
+    // Handle buffer (odd elements) before organizing pairs
+    std::vector<int> buffer;
+    if (_vec.size() % (_pairSize * 2) != 0)
+        buffer = bufferOddPair();
+
+    // Organize pairs at current size level
+    organizePairs();
+    printVector();
+
+    // Double pair size for next recursion level
+    _pairSize *= 2;
+
+    // Continue recursion if we have enough elements for the next level
+    if (_vec.size() > _pairSize)
+    {
+        merge();
+        _pairSize = _pairSize / 2;
+        std::cout << "Pair Size after recursion: " << _pairSize << std::endl;
     }
-    
-//    std::cout << red;
-//    std::cout << "Pair size:" << _pairSize << std::endl;
-//    printVector();
-//    std::cout << reset;
+
+    // Always perform split and insert operation, even at pair size 1
+    splitAndInsert();
+
+    // Restore buffer elements
+    if (!buffer.empty())
+        retreiveBuffer(buffer);
+
+    std::cout << "Current vector state after merge level " << recursion_level << ":" << std::endl;
+    printVector();
 }
