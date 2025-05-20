@@ -379,7 +379,8 @@ void PmergeMe::merge()
     std::cout << "Current Pair Size: " << _pairSize << std::endl;
 
     // Modified base case to only return for empty or single-element vectors or maximum recursion depth
-    if (recursion_level > MAX_RECURSION_DEPTH || _vec.empty() || _vec.size() == 1)
+	organizePairs();
+    if (recursion_level > MAX_RECURSION_DEPTH || _vec.empty() || _vec.size() == 1 || _vec.size() > _pairSize)
         return;
 
     // Handle buffer (odd elements) before organizing pairs
@@ -388,19 +389,18 @@ void PmergeMe::merge()
         buffer = bufferOddPair();
 
     // Organize pairs at current size level
-    organizePairs();
     printVector();
 
     // Double pair size for next recursion level
     _pairSize *= 2;
 
     // Continue recursion if we have enough elements for the next level
-    if (_vec.size() > _pairSize)
-    {
+//    if (_vec.size() > _pairSize)
+//    {
         merge();
         _pairSize = _pairSize / 2;
         std::cout << "Pair Size after recursion: " << _pairSize << std::endl;
-    }
+//    }
 
     // Always perform split and insert operation, even at pair size 1
     splitAndInsert();
