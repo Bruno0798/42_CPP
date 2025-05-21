@@ -54,11 +54,6 @@ void checkArguments(int argc, char **argv)
 	}
 }
 
-/**
- * Trim whitespace from beginning and end of a string
- * @param str String to trim
- * @return Trimmed string
- */
 std::string trim(const std::string& str)
 {
 	size_t first = str.find_first_not_of(" \t\n\r");
@@ -68,14 +63,6 @@ std::string trim(const std::string& str)
 	return str.substr(first, last - first + 1);
 }
 
-/**
- * Split a line by delimiter and add to database
- * @param line Line to split
- * @param delimiter Character to split by
- * @param dataBase Map to store results
- * @param lineNumber Current line number for error reporting
- * @throw BitcoinExchange::MyException for malformed input
- */
 void splitLine(const std::string &line, char delimiter, std::map<std::string, float> &dataBase, int lineNumber)
 {
 	if (line.empty() || line[0] == '#' || line == "date,exchange_rate")

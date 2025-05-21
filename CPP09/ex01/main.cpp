@@ -10,19 +10,18 @@ bool checkSymbols(char **argv)
 	for(int i =0; argv[1][i] != '\0'; ++i)
 	{
 		if(!(std::isdigit(argv[1][i]) || !(argv[1][i] != ' ' && argv[1][i] != '\t' && argv[1][i] != '-' && argv[1][i] != '+' && argv[1][i] != '*' && argv[1][i] != '/')))
-		{
-			std::cout << "Error" << std::endl;
 			return false;
-		}
 		if(std::isdigit(argv[1][i]))
 			digitCount++;
 		else if(argv[1][i] != ' ')
 			symbolCount++;
+		if(symbolCount > (digitCount - 1))
+			return false;
 	}
 	if(symbolCount != (digitCount - 1))
 	{
 //		std::cout << "Digit: " << digitCount << std::endl << "Symbols: " << symbolCount << std::endl;
-		std::cout << "Error" << std::endl;
+//		std::cout << "Error" << std::endl;
 		return false;
 	}
 	return true;
@@ -49,6 +48,8 @@ int main(int argc, char **argv)
 	{
 		if (checkSymbols(argv))
 			rpn.polish(charPtrToString(argv));
+		else
+			std::cout << "Error" << std::endl;
 	}
 	catch (std::exception &e)
 	{

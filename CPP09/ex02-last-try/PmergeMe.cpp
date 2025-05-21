@@ -1,33 +1,33 @@
 #include "PmergeMe.hpp"
 
+int PmergeMe::comparisons = 0;
+
 PmergeMe::PmergeMe()
 {
-	// std::cout << "PmergeMe Default Constructor Called" << std::endl;
-}
 
-PmergeMe::PmergeMe(const PmergeMe &other)
-{
-	(void)other;
-	// std::cout << "PmergeMe Copy Constructor Called" << std::endl;
-	*this = other;
 }
-
-PmergeMe::~PmergeMe()
+PmergeMe::PmergeMe(const PmergeMe& pm)
 {
-	// std::cout << "PmergeMe Destructor Called" << std::endl;
+	(void)pm;
 }
-
-PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+PmergeMe& PmergeMe::operator=(const PmergeMe& pm)
 {
-	//	std::cout << "PmergeMe Assignment Operator Called" << std::endl;
-	if (this != &other)
-	{
-		// Copy assignment operator implementation
-	}
+	(void)pm;
 	return *this;
 }
-
-void PmergeMe::sortVec()
+PmergeMe::~PmergeMe()
 {
-	void PmergeMe::sort_vec(std::vector<int>& vec) { _merge_insertion_sort<std::vector<int> >(vec, 1); }
+
+}
+
+long jacobsthalNumber(long n) { return round((pow(2, n + 1) + pow(-1, n)) / 3); }
+
+void PmergeMe::sort_vec(std::vector<int>& vec)
+{
+        mergeInsertion(vec, 1);
+}
+
+void PmergeMe::sort_deque(std::deque<int>& deque)
+{
+	mergeInsertion<std::deque<int> >(deque, 1);
 }

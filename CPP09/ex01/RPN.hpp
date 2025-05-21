@@ -2,6 +2,7 @@
 #define RPN_H
 
 #include <iostream>
+#include <stack>
 
 class RPN
 {
