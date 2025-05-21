@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
+#include <cstring>
 #include "BitcoinExchange.hpp"
 
 // ANSI color definitions for terminal output
@@ -16,14 +17,8 @@
 #define cyan "\033[36m"
 #define reset "\033[0m"
 
-// Program version
-#define VERSION "1.0.0"
-/**
- * Display usage information for the program
- */
 void displayUsage()
 {
-	std::cout << yellow << "Bitcoin Exchange Rate Calculator v" << VERSION << reset << std::endl;
 	std::cout << "Usage: " << cyan << "./btc <input_file>" << reset << std::endl;
 	std::cout << "  <input_file>: A file containing date and value pairs in the format: YYYY-MM-DD | value" << std::endl;
 	std::cout << std::endl;
@@ -33,12 +28,6 @@ void displayUsage()
 	std::cout << "  2020-01-02 | 10.5" << std::endl;
 }
 
-/**
- * Validate command-line arguments
- * @param argc Number of arguments
- * @param argv Array of argument strings
- * @throw BitcoinExchange::MyException if arguments are invalid
- */
 void checkArguments(int argc, char **argv)
 {
 	if(argc != 2)
@@ -47,7 +36,7 @@ void checkArguments(int argc, char **argv)
 		throw BitcoinExchange::MyException("Error: Invalid number of arguments");
 	}
 	
-	if (!argv[1] || strlen(argv[1]) == 0)
+	if (!argv[1] || std::strlen(argv[1]) == 0)
 	{
 		displayUsage();
 		throw BitcoinExchange::MyException("Error: Empty filename provided");
@@ -66,7 +55,7 @@ std::string trim(const std::string& str)
 void splitLine(const std::string &line, char delimiter, std::map<std::string, float> &dataBase, int lineNumber)
 {
 	if (line.empty() || line[0] == '#' || line == "date,exchange_rate")
-		return; // Skip empty lines, comments, or header
+		return;
 		
 	std::stringstream ss(line);
 	std::string key;
@@ -82,19 +71,17 @@ void splitLine(const std::string &line, char delimiter, std::map<std::string, fl
 			std::ostringstream oss;
 			oss << "Warning: Line " << lineNumber << " - Empty date field: " << line;
 			std::cerr << yellow << oss.str() << reset << std::endl;
+			dataBase.clear();
 			return;
 		}
-		
-		// Validate date format (YYYY-MM-DD)
 		if (key.length() < 8 || count(key.begin(), key.end(), '-') != 2)
 		{
 			std::ostringstream oss;
 			oss << "Warning: Line " << lineNumber << " - Invalid date format: " << key;
 			std::cerr << yellow << oss.str() << reset << std::endl;
+			dataBase.clear();
 			return;
 		}
-		
-		// Convert value to float
 		char* endptr;
 		float floatValue = strtof(value.c_str(), &endptr);
 		
@@ -103,10 +90,9 @@ void splitLine(const std::string &line, char delimiter, std::map<std::string, fl
 			std::ostringstream oss;
 			oss << "Warning: Line " << lineNumber << " - Invalid value: " << value;
 			std::cerr << yellow << oss.str() << reset << std::endl;
+			dataBase.clear();
 			return;
 		}
-		
-		// Store valid data
 		dataBase[key] = floatValue;
 	}
 	else
@@ -114,14 +100,11 @@ void splitLine(const std::string &line, char delimiter, std::map<std::string, fl
 		std::ostringstream oss;
 		oss << "Warning: Line " << lineNumber << " - Malformed line: " << line;
 		std::cerr << yellow << oss.str() << reset << std::endl;
+		dataBase.clear();
+		return;
 	}
 }
 
-/**
- * Read the database file and populate the exchange rate database
- * @return Map of dates to exchange rates
- * @throw BitcoinExchange::MyException if database file cannot be opened or is empty
- */
 std::map<std::string, float> readDataBase()
 {
 	const std::string file_name = "data.csv";
@@ -148,14 +131,9 @@ std::map<std::string, float> readDataBase()
 	{
 		throw BitcoinExchange::MyException("Error: Database is empty or contains no valid data");
 	}
-	
-	std::cout << green << "Successfully loaded " << dataBase.size() << " exchange rate entries" << reset << std::endl;
 	return dataBase;
 }
-/**
- * Print the database contents (for debugging)
- * @param dataBase Map of dates to exchange rates
- */
+
 void printDataBase(const std::map<std::string, float> &dataBase)
 {
 	std::cout << cyan << "Database Contents (" << dataBase.size() << " entries):" << reset << std::endl;
@@ -163,18 +141,11 @@ void printDataBase(const std::map<std::string, float> &dataBase)
 		std::cout << "  " << it->first << " => " << it->second << std::endl;
 }
 
-/**
- * Validate and parse a date string into the BitcoinExchange object
- * @param bitcoin BitcoinExchange object to update
- * @param date Date string to parse in format YYYY-MM-DD
- * @throw BitcoinExchange::MyException if date is invalid
- */
 void checkDate(BitcoinExchange &bitcoin, const std::string &date)
 {
 	std::ostringstream oss;
 	size_t dashCount = std::count(date.begin(), date.end(), '-');
-	
-	// Validate date format
+
 	if(dashCount < 2)
 	{
 		oss << cyan << bitcoin.getLine() << reset << " Missing fields from date";
@@ -185,16 +156,14 @@ void checkDate(BitcoinExchange &bitcoin, const std::string &date)
 		oss << cyan << bitcoin.getLine() << reset << " Too many fields for a date";
 		throw BitcoinExchange::MyException(oss.str());
 	}
-	
-	// Extract date components
+
 	size_t firstDash = date.find('-');
 	size_t secondDash = date.find('-', firstDash + 1);
 	
 	std::string yearStr = date.substr(0, firstDash);
 	std::string monthStr = date.substr(firstDash + 1, secondDash - firstDash - 1);
 	std::string dayStr = date.substr(secondDash + 1);
-	
-	// Validate all components are numeric
+
 	for (size_t i = 0; i < yearStr.length(); i++) {
 		if (!isdigit(yearStr[i])) {
 			oss << cyan << bitcoin.getLine() << reset << " Year must contain only digits: " << yearStr;
@@ -208,39 +177,29 @@ void checkDate(BitcoinExchange &bitcoin, const std::string &date)
 			throw BitcoinExchange::MyException(oss.str());
 		}
 	}
-	
-	// Set the date components with validation
+
 	try {
 		bitcoin.setYear(std::atoi(yearStr.c_str()));
 		bitcoin.setMonth(std::atoi(monthStr.c_str()));
 		bitcoin.setDay(dayStr);
 	} catch (BitcoinExchange::MyException &e) {
-		throw; // Rethrow the exception as it's already properly formatted
+		throw;
 	} catch (std::exception &e) {
 		oss << cyan << bitcoin.getLine() << reset << " Invalid date: " << e.what();
 		throw BitcoinExchange::MyException(oss.str());
 	}
 }
-/**
- * Process a single line from the input file
- * @param bitcoin BitcoinExchange object to use for processing
- * @param line The line to process
- */
+
 void checkLine(BitcoinExchange &bitcoin, const std::string& line)
 {
 	try
 	{
 		bitcoin.setLine(line);
-		
-		// Skip empty lines or comment lines
-		if (line.empty() || line[0] == '#') {
+		if (line.empty() || line[0] == '#')
 			return;
-		}
-		
-		// Skip header line
-		if (line.find("date | value") != std::string::npos) {
+
+		if (line.find("date | value") != std::string::npos)
 			return;
-		}
 		
 		std::stringstream ss(line);
 		std::string date;
@@ -251,13 +210,10 @@ void checkLine(BitcoinExchange &bitcoin, const std::string& line)
 			date = trim(date);
 			value = trim(value);
 			
-			if (date.empty()) {
+			if (date.empty())
 				throw BitcoinExchange::MyException("Empty date field");
-			}
-			
+
 			checkDate(bitcoin, date);
-			
-			// Convert value to float with validation
 			char* end;
 			float amount = std::strtof(value.c_str(), &end);
 			
@@ -287,20 +243,13 @@ void checkLine(BitcoinExchange &bitcoin, const std::string& line)
 	}
 }
 
-
-/**
- * Open the input file and return the file stream
- * @param filename Name of the file to open
- * @return Pointer to an open ifstream
- * @throw BitcoinExchange::MyException if file cannot be opened
- */
 std::ifstream* openFile(const char* filename)
 {
 	std::ifstream* file = new std::ifstream(filename);
 	
 	if (!file || !file->is_open())
 	{
-		delete file; // Clean up if file couldn't be opened
+		delete file;
 		
 		std::ostringstream oss;
 		oss << "Error: could not open file '" << filename << "'";
@@ -310,12 +259,6 @@ std::ifstream* openFile(const char* filename)
 	return file;
 }
 
-
-/**
- * Process all lines from the input file
- * @param bitcoin BitcoinExchange object to use for processing
- * @param file Input file stream to read from
- */
 void processInputFile(BitcoinExchange &bitcoin, std::ifstream *file)
 {
 	if (!file) {
@@ -324,11 +267,8 @@ void processInputFile(BitcoinExchange &bitcoin, std::ifstream *file)
 	
 	std::string line;
 	int lineCount = 0;
-	
-	// Skip header line if it exists
+
 	std::getline(*file, line);
-	
-	// Process remaining lines
 	while (std::getline(*file, line))
 	{
 		lineCount++;
@@ -340,12 +280,6 @@ void processInputFile(BitcoinExchange &bitcoin, std::ifstream *file)
 	}
 }
 
-/**
- * Main function - Entry point of the program
- * @param argc Argument count
- * @param argv Argument vector
- * @return Exit status
- */
 int main(int argc, char **argv)
 {
 	try {

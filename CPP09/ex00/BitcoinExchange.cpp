@@ -83,12 +83,12 @@ void BitcoinExchange::setYear(int year)
 	std::ostringstream oss;
 	if (year < 2009)
 	{
-		oss << cyan << getLine() << reset << "\t Year cant be lower than 2009";
+		oss << cyan << getLine() << reset << " Year cant be lower than 2009";
 		throw MyException(oss.str());
 	}
 	else if (year > 2025)
 	{
-		oss << cyan << getLine() << reset << "\t Year cant be bigger than 2025";
+		oss << cyan << getLine() << reset << " Year cant be bigger than 2025";
 		throw MyException(oss.str());
 	}
 	BitcoinExchange::year = year;
@@ -105,12 +105,12 @@ void BitcoinExchange::setMonth(int month)
 
 	if(month < 1)
 	{
-		oss << cyan << getLine() << reset << "\t Month cant be lower than 1";
+		oss << cyan << getLine() << reset << " Month cant be lower than 1";
 		throw MyException(oss.str());
 	}
 	else if (month > 12)
 	{
-		oss << cyan << getLine() << reset << "\t Month cant be bigger than 12";
+		oss << cyan << getLine() << reset << " Month cant be bigger than 12";
 		throw MyException( oss.str());
 	}
 	BitcoinExchange::month = month;
