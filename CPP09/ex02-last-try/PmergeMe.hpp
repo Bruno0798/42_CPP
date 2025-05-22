@@ -14,11 +14,11 @@
 #include <climits>
 
 #define RESET   "\033[0m"
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
 
-
-class PmergeMe {
+class PmergeMe
+{
 private:
 	template <typename T> void mergeInsertion(T& container, int pairSize);
 	template <typename T> void swapPair(T it, int pair_level);
@@ -56,6 +56,19 @@ template <typename T> void PmergeMe::swapPair(T it, int pair_level)
 		std::iter_swap(start, next(start, pair_level));
 		start++;
 	}
+}
+
+template <typename Iterator, typename T, typename Compare>
+Iterator binarySearch(Iterator first, Iterator last, const T& value, Compare comp) {
+	while (first < last) {
+		Iterator mid = first + (last - first) / 2;
+		if (!comp(value, *mid)) {
+			first = mid + 1;
+		} else {
+			last = mid;
+		}
+	}
+	return first;
 }
 
 template <typename T>
@@ -119,7 +132,7 @@ template <typename T> void PmergeMe::mergeInsertion(T& container, int pairSize)
 		typename std::vector<Iterator>::iterator bound_it = next(main.begin(), curr_jacobsthal + inserted_numbers);
 		while (nbr_of_times)
 		{
-			typename std::vector<Iterator>::iterator idx = std::upper_bound(main.begin(), bound_it, *pend_it, comparePairs<Iterator>);
+			typename std::vector<Iterator>::iterator idx = binarySearch(main.begin(), bound_it, *pend_it, comparePairs<Iterator>);
 			typename std::vector<Iterator>::iterator inserted = main.insert(idx, *pend_it);
 			nbr_of_times--;
 			pend_it = pend.erase(pend_it);
@@ -135,7 +148,7 @@ template <typename T> void PmergeMe::mergeInsertion(T& container, int pairSize)
 	{
 		typename std::vector<Iterator>::iterator curr_pend = next(pend.begin(), i);
 		typename std::vector<Iterator>::iterator curr_bound = next(main.begin(), main.size() - pend.size() + i + oddPair);
-		typename std::vector<Iterator>::iterator idx = std::upper_bound(main.begin(), curr_bound, *curr_pend, comparePairs<Iterator>);
+		typename std::vector<Iterator>::iterator idx = binarySearch(main.begin(), curr_bound, *curr_pend, comparePairs<Iterator>);
 		main.insert(idx, *curr_pend);
 	}
 
