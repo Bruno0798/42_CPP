@@ -24,7 +24,7 @@ static std::deque<int> argvToDeque(int argc, char** argv)
 	std::deque<int> res;
 	for (int i = 1; i < argc; i++)
 	{
-		res.push_back(atoi(argv[i]));
+		res.push_back(std::atoi(argv[i]));
 	}
 	return res;
 }
@@ -34,7 +34,7 @@ static int F(int n)
 	int sum = 0;
 	for (int k = 1; k <= n; ++k) {
 		double value = (3.0 / 4.0) * k;
-		sum += static_cast<int>(ceil(log2(value)));
+		sum += static_cast<int>(std::ceil(log2(value)));
 	}
 	return sum;
 }
