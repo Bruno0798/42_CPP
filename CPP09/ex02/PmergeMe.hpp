@@ -59,14 +59,15 @@ template <typename T> void PmergeMe::swapPair(T it, int pair_level)
 }
 
 template <typename Iterator, typename T, typename Compare>
-Iterator binarySearch(Iterator first, Iterator last, const T& value, Compare comp) {
-	while (first < last) {
+Iterator binarySearch(Iterator first, Iterator last, const T& value, Compare comp)
+{
+	while (first < last)
+	{
 		Iterator mid = first + (last - first) / 2;
-		if (!comp(value, *mid)) {
+		if (!comp(value, *mid))
 			first = mid + 1;
-		} else {
+		else
 			last = mid;
-		}
 	}
 	return first;
 }
